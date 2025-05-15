@@ -1,0 +1,107 @@
+🧮 Arrays & Hashing
+Two Sum II – Input Array Is Sorted
+
+3Sum
+
+Subarray Sum Equals K
+
+Longest Consecutive Sequence
+
+Contiguous Array
+
+Product of Array Except Self
+
+Maximum Subarray Sum (Kadane’s Algorithm)
+
+Sort Colors (Dutch National Flag)
+
+Minimum Size Subarray Sum
+
+Spiral Matrix
+
+🔠 Strings
+Longest Substring Without Repeating Characters
+
+Group Anagrams
+
+Longest Palindromic Substring
+
+Valid Anagram
+
+Minimum Window Substring
+
+Decode String
+
+Longest Common Prefix
+
+Zigzag Conversion
+
+Multiply Strings
+
+
+Implement strStr()
+
+🌳 Trees & Binary Trees
+Binary Tree Level Order Traversal
+
+Lowest Common Ancestor of a Binary Tree
+
+Construct Binary Tree from Preorder and Inorder
+
+Validate Binary Search Tree
+
+Diameter of Binary Tree
+
+Kth Smallest Element in a BST
+
+Flatten Binary Tree to Linked List
+
+Binary Tree Right Side View
+
+Path Sum II
+
+Count Good Nodes in Binary Tree
+
+🔁 Recursion & Backtracking
+Combination Sum
+
+Letter Combinations of a Phone Number
+
+Subsets II
+
+Permutations II
+
+Word Search
+
+N-Queens
+
+Palindrome Partitioning
+
+Sudoku Solver
+
+Generate Parentheses
+
+Combination Sum II
+
+🔄 Two Pointers & Sliding Window
+Container With Most Water
+
+Trapping Rain Water
+
+Longest Repeating Character Replacement
+
+Permutation in String
+
+Sliding Window Maximum
+
+📊 Heaps & Priority Queues
+Top K Frequent Elements
+
+K Closest Points to Origin
+
+Merge k Sorted Lists
+
+Find Median from Data Stream
+
+🔍 Binary Search
+Search in Rotated Sorted Array
