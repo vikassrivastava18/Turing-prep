@@ -134,7 +134,7 @@ function stringLength(str) {
     return count
 }
 
-console.log("String length: ",stringLength(["abcd", "e", "fg", ["abcd", ["e", "fg"]]]));
+console.log("String length: ", stringLength(["abcd", "e", "fg", ["abcd", ["e", "fg"]]]));
 
 
 function twoSum(arr, s) {
@@ -203,9 +203,23 @@ console.log(separator("hello123"));
 
 function encodedString(str) {
     // "3[a]2[bc]5[a]","13[a]2[bc]5[a]", "2[abc3[de]]""
+    let result = "";
+    let i = 0;
+    let digit;
 
+    while (i < str.length) {
+        
+        if(!Number.isNaN(Number(char))) {
+            digit = Number(str(i))
+        }
+
+        else {
+
+        }
+        
+
+    }
 }
-
 
 function fibonacci(n) {
     if (n === 0 || n === 1) return n
@@ -222,7 +236,75 @@ function fibonacci(n) {
     return b
 }
 
-for (let i = 0; i <=5; i++) {
+for (let i = 0; i <= 5; i++) {
     console.log(fibonacci(i));
 }
 
+
+function isPrime(n) {
+    if (n === 1 || n === 0) return false
+    else if (n === 2) return true
+    else if (n < 0) return false
+
+    for (let i = 2; i < n; i++) {
+        if (n % i === 0) return false
+    }
+
+    return true
+}
+
+console.log("Checking Prime --------------");
+
+for (let i = 0; i <= 15; i++) {
+    console.log(i, isPrime(i));
+}
+
+
+function binarySearch(arr, num) {
+    let st = 0;
+    let end = arr.length-1;
+
+    while (st < end) {
+        let mid = Math.floor((st + end)/2);
+        if (num === arr[mid]) return mid
+        else if (num < arr[mid]) end = mid - 1
+        else st = mid + 1
+    }
+
+    return -1
+}
+
+console.log(binarySearch([5, 14, 30], 14));
+console.log(binarySearch([5, 14,20, 30], 20));
+console.log(binarySearch([5, 14, 30], 10));
+
+
+function checkBrackets(str) {
+    const open = ["[", "{", "("];
+    const closed = ["]", "}", ")"];
+
+    let bucket = [];
+
+    for (let char of str) {
+        if (open.includes(char)) bucket.push(char)
+        else if (closed.includes(char)) {
+            if (bucket.length === 0) return false
+            else {
+                const lastOpen = bucket[bucket.length-1]
+                if (open.indexOf(lastOpen) !== closed.indexOf(char)) return false
+                bucket = bucket.slice(0,-1);
+            }
+        }
+    }
+
+    return bucket.length === 0
+}
+
+console.log(checkBrackets("{([])}"));
+console.log(checkBrackets("hello{]}"));
+console.log(checkBrackets("{([])}["));
+
+var lan = [1,2,3]
+lan.length = 0
+lan.push(4)
+console.log("lan",lan);

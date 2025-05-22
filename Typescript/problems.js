@@ -18,11 +18,17 @@ function checkBrackets(str) {
             }
         }
     }
-    return true;
+
+    return testBucket.length === 0
 }
 // Test cases to pass
+console.log("------------------");
+
 console.log(checkBrackets("{([])}"));
 console.log(checkBrackets("hello{]}"));
+
+console.log("------------------");
+
 function countSqRoots(numList) {
     // Function returns all elements in Array that have square roots in the Array(including iteself)
     let output = [];
@@ -33,6 +39,7 @@ function countSqRoots(numList) {
     return output;
 }
 console.log(countSqRoots([1, 2, 3, 4, 5]));
+
 function removeAndSort(numList, k) {
     // Remove all the items in array before k, the return sorted Array
     let removedArray = numList.slice(k, numList.length);
@@ -40,17 +47,27 @@ function removeAndSort(numList, k) {
     return sortedArray;
 }
 console.log(removeAndSort([1, 2, 30, 14, 5], 2));
+
 function sameChars(w1, w2) {
-    // Returns true if both words contain same characters irrespective of frequency
-    const uniqueFirst = Array.from(new Set(w1)).sort().join("");
-    const uniqueSecond = Array.from(new Set(w2)).sort().join("");
-    return uniqueFirst === uniqueSecond;
+    const uniqueFirst = new Set(w1);
+    const uniqueSecond = new Set(w2);
+    const firstArray = Array.from(uniqueFirst);
+    const secondArray = Array.from(uniqueSecond);
+    if (firstArray.length != secondArray.length)
+        return false;
+    for (let chars of firstArray) {
+        if (!secondArray.includes(chars))
+            return false;
+    }
+    return true;
 }
-console.log("-----");
-console.log(sameChars("hello", "hellllooo"));
-console.log(sameChars("abcd", "acbd"));
-console.log(sameChars("abcd", "acbe"));
-console.log("-----");
+const w1 = "hello";
+const w2 = "hellllooo";
+const w3 = "abcd";
+const w4 = "abce";
+console.log(sameChars(w1, w2));
+console.log(sameChars(w3, w4));
+
 const binarySearchFunc = function (l, n) {
     let startInd = 0;
     let endIndex = l.length - 1;
@@ -70,6 +87,7 @@ console.log(binarySearchFunc([5, 14, 30], 14));
 console.log(binarySearchFunc([5, 14, 30], 5));
 console.log(binarySearchFunc([5, 14, 30], 30));
 console.log(binarySearchFunc([5, 14, 30], -14));
+
 const guessInBillion = function () {
     const numToGuess = Math.floor(Math.random() * 1000000001);
     let start = 0;
@@ -87,77 +105,5 @@ const guessInBillion = function () {
     return ([numToGuess, guess, attempts]);
 };
 console.log(guessInBillion());
-const flatten = function (l) {
-    let result = [];
-    for (let item of l) {
-        if (typeof item === "number")
-            result.push(item);
-        else
-            result = result.concat(flatten(item));
-    }
-    return result;
-};
-console.log(flatten([1, 2, 3, [4, 5, [6, 7]]]));
-const twoSum = (l, s) => {
-    //  Returns a list of pairs whose sum = s
-    //  Array is sorted
-    let result = [];
-    let start = 0;
-    let end = l.length - 1;
-    while (start < end) {
-        if (l[start] + l[end] == s) {
-            result.push([l[start], l[end]]);
-            start += 1;
-            end -= 1;
-        }
-        else if (l[start] + l[end] < s)
-            start += 1;
-        else
-            end -= 1;
-    }
-    return result;
-};
-console.log(twoSum([0, 1, 2, 3, 4, 5], 4));
-console.log(twoSum([0, 1, 2, 3, 4, 5], 5));
-console.log(twoSum([0, 1, 2, 3, 4, 5], 15));
-const longestSubstringCount = function (str) {
-    let subSet = new Set();
-    let left = 0;
-    let maxLength = 0;
-    for (let right = 0; right < str.length; right++) {
-        while (subSet.has(str[right])) {
-            subSet.delete(subSet.values().next().value);
-            left += 1;
-        }
-        subSet.add(str[right]);
-        maxLength = Math.max(maxLength, right - left + 1);
-    }
-    return maxLength;
-};
-console.log(longestSubstringCount("abcdaaf"));
-const fibonacci = (n) => {
-    if (n === 0 || n === 1)
-        return n;
-    let a = 0;
-    let b = 1;
-    let count = 2;
-    while (count <= n) {
-        let r = a + b;
-        a = b;
-        b = r;
-        count += 1;
-    }
-    return b;
-};
-const groupAnagram = function (arr) {
-    let out = {};
-    for (let word of arr) {
-        const wordSorted = word.split('').sort().join('');
-        if (wordSorted in out)
-            out[wordSorted].push(word);
-        else
-            out[wordSorted] = [word];
-    }
-    return Object.values(out);
-};
-console.log(groupAnagram(["eat", "tea", "ate", "pan", "nap"]));
+
+

@@ -15,8 +15,7 @@ function checkBrackets(str: string): boolean {
                 if (openBrackets.indexOf(lastBracket) != closedBrackets.indexOf(char)) return false
                 testBucket = testBucket.slice(0, -1)
             }
-        }
-                
+        }                
     }
     return true
 }
@@ -170,7 +169,6 @@ const longestSubstringCount = function(str: string): number {
 
 console.log(longestSubstringCount("abcdaaf"));
 
-
 const fibonacci = (n: number): number => {
     if (n === 0 || n === 1 ) return n
     let a = 0;
@@ -201,3 +199,7 @@ const groupAnagram = function (arr:  string[]): Array<string[]> {
 
 console.log(groupAnagram(["eat", "tea", "ate", "pan", "nap"]));
 
+String var company: string = "a";
+Number var age: number = 10
+Boolean var b: booleam = false
+console.log([1].indexOf(1200));
