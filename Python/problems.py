@@ -9,13 +9,18 @@ Original file is located at
 Find whether a number is a prime
 """
 
-def is_prime(n):
-  if n < 2:
-    return 'Prime number starts from 2'
-  for i in range(2, int(n ** 0.5) + 1):
-    if n % i == 0:
-      return f'Not prime, divided by {i}'
-  return 'Is prime'
+def is_prime(n: int) -> str:
+    """
+    Parameters: integer
+    Returns: A string saying whether input is a prime
+    Plan: Use Python modulus function to check if the iput divides numbers coming before it.
+    """
+    if n < 2:
+        return 'Prime number starts from 2'
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return f'Not prime, divided by {i}'
+    return 'Is prime'
 
 for i in range(100):
   print(i, is_prime(i))
@@ -24,27 +29,26 @@ for i in range(100):
 # O(n) = (int(n ** 0.5)) = n ** 0.5
 
 """Random code for error handling"""
+def remainder(a: int, b: int) -> (int | AssertionError):
+    """
+    Parameters: two integers
+    Returns: Returns integer remainder for correct input, Assertion Error
+    Plan: Use assertion concept for input validation
+    """
+    assert  b!=0, 'Denominator should not be 0'
+    assert type(a) == int and type(b) == int, "Invalid inputs"
 
-def remainder(a, b):
-  if b == 0:
-    print('dividor cannot be zero')
-    return
-  try:
     r = a % b
-    print(r)
     return r
-  except Exception as e:
-    print(e)
-    return
-
-remainder(5, 2)
+print("Remainder:--------------------------------")
+print(remainder(5, 2))
 remainder(6, 2)
 remainder(5, 0)
 remainder(5, "2")
 
-"""Recursion to find last element."""
 
-def last_recursion(ls):
+"""Recursion to find last element of a list."""
+def last_recursion(ls: list) -> any | str:
   if len(ls) == 0:
     return "Empty list"
   elif len(ls[1:]) == 0:
@@ -56,9 +60,9 @@ print(last_recursion([1,2,3]))
 print(last_recursion([]))
 print(last_recursion([1]))
 
-def sum_digits(s):
-  """ s is a non-empty string containing digits.
-  Returns sum of all chars that are digits """
+
+"""Returns sum of all chars that are digits"""
+def sum_digits(s: str) -> int:
   assert len(s) != 0, "s is empty"
   total = 0
   for char in s:
@@ -106,14 +110,14 @@ for student in test_grades:
   student.append(avg)
 print(test_grades)
 
-def avg(grades):
+def avg(grades: list[int]) -> (int | None):
   try:
     return sum(grades)/len(grades)
   except ZeroDivisionError:
     print('warning: no grades data')
     return None
 
-def print_even_indexs(word):
+def print_even_indexs(word: str) -> list:
     return word[::2]
 
 print_even_indexs("abcdefg")
@@ -121,7 +125,11 @@ print_even_indexs("abcdefg")
 import random
 import time
 
-def guess_with_binary(n):
+def guess_with_binary(n: int) -> tuple[int, int]:
+    """
+    Params:  A number to guess
+    Returns: The guessed number, number of attempts
+    """
     start_time = time.time()
 
     num = random.randint(0, n)
@@ -147,17 +155,22 @@ def guess_with_binary(n):
 
 guess_with_binary(100000000000000)
 
-def evaluate_quadratic(a, b, c, x):
+def evaluate_quadratic(a) -> (float | int):
     return a * x * x + b * x + c
 
 evaluate_quadratic(1,1,1,1)
 
-def two_quadratics(a1, b1, c1, x1, a2, b2, c2, x2):
-    print((a1 * x1 ** 2 + b1 * x1 + c1) + (a1 * x2 ** 2 + b2 * x2 + c2))
+def two_quadratics(a1: (float | int), b1: (float | int), c1: (float | int), x1: (float | int), a2: (float | int), b2: (float | int), c2: (float | int), x2: (float | int)) -> (float | int):
+    return (a1 * x1 ** 2 + b1 * x1 + c1) + (a1 * x2 ** 2 + b2 * x2 + c2)
 
 two_quadratics(1,1,1,1,1,1,1,1)
 
-def same_chars(w1, w2):
+def same_chars(w1: str, w2: str) -> bool:
+    """
+    Parameters: Two strings
+    Returns: True if the two strings have same characters, else False
+    Plan: Use concept of Sets for sameness.
+    """
     w1_formatted, w2_formatted = list(set(w1)), list(set(w2))
 
     if not len(w1_formatted) == len(w2_formatted):
@@ -174,7 +187,7 @@ print(same_chars("abccc", "caaab")) # prints True
 print(same_chars("abcd", "cabaa"))  # prints False
 print(same_chars("abcabc", "cabz")) # prints False
 
-def dot_product(tA, tB):
+def dot_product(tA: tuple[int | float], tB: tuple[int | float]):
     """
     tA: a tuple of numbers
     tB: a tuple of numbers of the same length as tA
@@ -195,9 +208,8 @@ tA = (1, 2, 3)
 tB = (4, 5, 6)
 print(dot_product(tA, tB)) # prints (3,32)
 
-def remove_and_sort(Lin, k):
-    """ Lin is a list of ints
-        k is an int >= 0
+def remove_and_sort(Lin: list[int], k: int) -> None:
+    """ 
     Mutates Lin to remove the first k elements in Lin and
     then sorts the remaining elements in ascending order.
     If you run out of items to remove, Lin is mutated to an empty list.
@@ -214,7 +226,7 @@ k = 2
 remove_and_sort(L, k)
 print(L)   # prints the list [3, 6]
 
-def count_sqrts(nums_list):
+def count_sqrts(nums_list: list[int]) -> int:
     """
     nums_list: a list
     Assumes that nums_list only contains positive numbers and that there are no duplicates.
@@ -232,7 +244,13 @@ def count_sqrts(nums_list):
 # Examples:
 print(count_sqrts([3,4,2,1,9,25])) # prints 3
 
-def check_brackets(chars):
+def check_brackets(chars: str) -> bool:
+    """
+    Parameters: A string of characters
+    Returns: True if all the brackets are closed in expected order
+    Plan: Create a bucket for open brackets.
+          When a new closed bracket is encountered match with last bracket in bucket.
+    """
     bucket = []
     open_brackets = ["{", "[", "("]
     closed_brackets = ["}", "]", ")"]
@@ -261,13 +279,12 @@ print(check_brackets("{[({[()]})]}"))
 
 [1,2,3][:-1]
 
-def max_sum_subarray(l, k):
+def max_sum_subarray(l: list[int|float], k: int) -> int:
     """
-    Parameters: l -> list of numbners
+    Parameters: l -> list of numbers
                 k -> size of subarray
-    Returns the maximum possible sum for subarray of size k
+    Returns:    maximum possible sum for subarray of size k
     """
-
     max_sum = sum(l[:k])
 
     for i in range(1, len(l)-k+1):
@@ -288,9 +305,9 @@ end_time = time.time()
 
 print("Total time: ", end_time - start_time)
 
-def max_subarray_optimal(l, k):
+def max_subarray_optimal(l: list, k: int) -> int:
     """
-    Parameters: l -> list of numbners
+    Parameters: l -> list of numbers
                 k -> size of subarray
     Returns the maximum possible sum for subarray of size k
     """
@@ -389,7 +406,7 @@ target = random.randint(0,10000)
 print("Target: ", target)
 two_sum(numbers, target)
 
-def three_sum(l, s=0):
+def three_sum(l: list, s:int=0) -> list:
     """
         Returns a triplet whose sum = s
         Using sliding windows technique
@@ -428,7 +445,7 @@ for i in range(5):
 
 from collections import Counter
 
-def is_anagram2(w1, w2):
+def is_anagram2(w1: str, w2:str) -> bool:
     print("Count: ",Counter(w1))
     return Counter(w1) == Counter(w2)
 
