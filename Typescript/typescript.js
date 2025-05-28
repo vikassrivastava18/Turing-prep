@@ -176,3 +176,4 @@ let findRichEmployees = empList.filter(emp => emp.salary > 50000);
 console.table(findRichEmployees);
 let averageSalary = empList.reduce((acc, emp) => acc + emp.salary, 0) / empList.length;
 console.log(averageSalary);
+

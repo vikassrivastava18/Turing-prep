@@ -114,6 +114,14 @@ function swap<T, U>(tuple: [T, U]): [U, T] {
     return [tuple[1], tuple[0]];
 }
 
+type addition<T> = (x: T, y: T) => T;
+
+let addNumbers: addition<number> = (x, y) => x + y
+let addStrings: addition<string> = (x, y) => x + y
+console.log(addNumbers(10, 20)); // 30
+console.log(addStrings("Hello ", "World")); // HelloWorld
+
+
 function swapEasy(num1: number, num2: number): [number, number] {
     return [num2, num1];
 }
@@ -224,18 +232,20 @@ class Mobile extends Product2 {
 let mobile = new Mobile("iPhone", 1000, "Electronics");
 console.log(mobile.getDetails()); // Mobile name: iPhone, Price: 1000
 
-interface Address {
+interface Address <T>{
     addressLine1: string;
     addressLine2?: string;
     city: string;
     country: string;
+    data: T;
 }
 
-let addres: Address = {
+let addres: Address<number> = {
     addressLine1: "123 Main St",
     // addressLine2: "Apt 4B",
     city: "New York",
-    country: "USA"
+    country: "USA",
+    data: 123
 }
 
 interface Employees {
@@ -271,3 +281,48 @@ console.table(findRichEmployees);
 
 let averageSalary = empList.reduce((acc, emp) => acc + emp.salary, 0) / empList.length;
 console.log(averageSalary);
+
+
+interface Calculator {
+    add: (x: number, y: number) => number;
+    subtract: (x: number, y: number) => number;
+}
+
+class SimpleCalculator implements Calculator {
+    add (x: number, y: number): number {
+        return x + y;
+    }
+    subtract (x: number, y: number): number {
+        return x - y;
+    }
+}
+
+class Base<T> {
+    data: T[];
+
+    constructor(data: T[]) {
+        this.data = data;
+    }
+}
+
+class Derived extends Base<Address<number>> {
+    constructor(data: Address<number>[]) {
+        super(data);
+    }
+
+    getData(): Address<number>[] {
+        return this.data;
+    }
+}
+
+let adam: Employees  = {
+    id: 3,
+    name: "Adam Smith",
+    department: "Finance",
+    salary: 70000,
+    dob: new Date("1991-03-03"),
+    email: "adam@email.com"
+}
+
+let newAdam = {...adam, salary: 80000};
+let empList2: Employees[] = [...empList, newAdam]
