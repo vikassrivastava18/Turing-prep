@@ -58,7 +58,6 @@ class Fibonacci:
         self.memo[n] = left + right
         return self.memo[n]
 
-
 # f = Fibonacci().compute(1000)
 
 # Minimum coins
@@ -173,7 +172,6 @@ print(MinCoins().compute([1,4,5], 4))
 print(MinCoins().compute([1,4,5], 5))
 
 
-
 def possible_coins_set(coins: list[int], sum: int, memo=None) -> int:
     # Initialize memo
     if not memo:
@@ -197,6 +195,10 @@ print("Possible count: ",possible_coins_set([1,4,5], 7))
     
 
 def maze_count(mz: tuple, start: tuple,  memo=None) -> int:
+    """
+    mz: tuple (height and width of maze)
+    stat: tuple (x, y coordinate)
+    """
     mz_height, mz_width = mz[0], mz[1]
     # Initialize with base case
     if memo == None:
@@ -243,3 +245,56 @@ assert maze_count((5, 1), (0, 0)) == 1
 # assert maze_count((0, 0), (0, 0)) == 1
 # Edge case: already at destination (0x0), still 1 valid path
 print(maze_count((15, 5), (0, 0)))
+
+memo = {0: 0, 1: 1, 2: 1}
+def tribonacci(n: int) -> int:
+    if n in memo:
+        return memo[n]
+    r = tribonacci(n-1) + tribonacci(n-2) + tribonacci(n-3)
+    memo[n] = r
+    return r
+
+print(f"Tribonacci of 3: ", tribonacci(3))
+print(f"Tribonacci of 4: ", tribonacci(4))
+print(f"Tribonacci of 5: ", tribonacci(5))
+
+
+def max_path_sum(graph, position: int, memo=None) -> int:
+    """
+    Graph: Contains the position (implicit) along with weight.
+    Plan: Recursively find the max path sum for subproblems
+    Base case: last square position with weight as it's max path cost
+    """
+    # Initialize memo
+    memo = memo if memo else {(len(graph)-1, len(graph[0])-1): graph[-1][-1]}
+    # Return max if already in memo
+    if position in memo:
+        return memo[position]
+    
+    current_weight = graph[position[0]][position[1]]
+    if position[0]+1 < len(graph):
+        down_max = max_path_sum(graph, (position[0]+1, position[1]), memo)
+    else:
+        down_max = 0
+    
+    if position[1] +1 < len(graph[0]):
+        right_max = max_path_sum(graph, (position[0], position[1]+1), memo)
+    else:
+        right_max = 0
+        
+    total_wight = current_weight + max(down_max,right_max)
+    memo[position] = total_wight
+    print("Memo: ", memo)
+
+    return total_wight
+    
+
+g = [[1,2,8], [5,1,3]]
+print(max_path_sum(g, (0,0)))
+
+def non_adjacent_max_sum(ls: list) -> int:
+    pass
+
+def min_summing_squares(n, sum) -> int:
+    # find the minimimum set of squares from 1 to n that on adding is equal to sum.
+    pass

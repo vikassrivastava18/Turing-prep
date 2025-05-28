@@ -5,10 +5,7 @@ class Stack:
     """
 
     def __init__(self, collection:(None|list) = None) -> None:
-        if not collection:
-            self.collection = []
-        else:
-            self.collection = collection
+        self.collection = collection if collection else []
 
     def add(self, item) -> None:
         self.collection.append(item)
@@ -45,7 +42,7 @@ qu.add(0)
 print(st.remove())
 print(qu.remove())
 
-
+# Undirected graph
 def maze_connected(start: int, end: int, connected_pairs: list, util= 'stack') -> bool:
     """
     Given a list of connected pairs in a maze: [(1,2), [2,3), ...]
@@ -348,6 +345,8 @@ graph = {
 
 print(dijkstra_gpt(graph=graph, start='A'))
 
+
+
 # DAG
 # A → C ← B -> F
 # ↓            ↓
@@ -390,6 +389,124 @@ def dag_topo_sort(graph: dict) -> list:
 
 print(dag_topo_sort(graph=graph))
 
+
+# Count components
+def count_components(graph: dict) -> int:
+    comp_count = 1
+    # queue = Queue([random.choice(graph.keys())])
+    queue = Queue([random.choice(list(graph.keys()))])
+    visited = []
+
+    while len(visited) < len(list(graph.keys())):
+        if not len(queue.collection) == 0:
+            node = queue.remove()
+        else:
+            comp_count +=1
+            node = random.choice([n for n in graph.keys() if n not in visited])
+        visited.append(node)
+        neighbors = graph[node]
+        # Add only neighbors not already visited
+        for neighbor in neighbors:
+            if not neighbor in visited and neighbor not in queue.collection:
+                queue.add(neighbor)
+
+    return comp_count
+
+# assert count_components(g) == 3, f"Components count not correct, should be 3"
+
+
+# Largest component size
+def largest_component(graph: dict) -> list:
+    """
+    Params: graph is an adjacency list of nodes
+    Returns the largest component in the graph
+    """
+    comp_count = 1
+    # queue = Queue([random.choice(graph.keys())])
+    queue = Queue([random.choice(list(graph.keys()))])
+    visited = set()
+    # Keep track of global max
+    max_count = 0
+    # Keep track of component max
+    comp_count = 0
+    while len(visited) <= len(list(graph.keys())):
+        if len(visited) == len(list(graph.keys())):
+            max_count = max(max_count, comp_count)
+            return max_count
+        if len(queue.collection) == 0:
+            # Keep track of global count
+            max_count = max(max_count, comp_count)
+            comp_count = 0
+            node = random.choice([n for n in graph.keys() if n not in visited])
+        else:
+            node = queue.remove()
+            comp_count += 1
+        visited.add(node)
+        neighbors = graph[node]
+        # Add only neighbors not already visited
+        for neighbor in neighbors:
+            if not neighbor in visited and neighbor not in queue.collection:
+                queue.add(neighbor)
+
+    return max_count
+
+from collections import deque
+
+def largest_component_gpt(graph: dict) -> int:
+    """
+    Params:
+        graph: dict representing an adjacency list
+    Returns:
+        Size of the largest connected component
+    """
+    visited = set()
+    max_count = 0
+
+    for node in graph:
+        if node not in visited:
+            size = 0
+            queue = deque([node])
+
+            while queue:
+                current = queue.popleft()
+                if current in visited:
+                    continue
+                visited.add(current)
+                size += 1
+                for neighbor in graph[current]:
+                    if neighbor not in visited:
+                        queue.append(neighbor)
+
+            max_count = max(max_count, size)
+
+    return max_count
+
+g = {0: [1,2], 1: [0,2], 2: [0,1], 3: [4,5,-1], 4: [3,6,-2], -1: [3], -2: [4],
+      5: [3,6], 6: [4,5], 7: [], 8: [9], 9: [8], 10: [11,12], 11: [10,12], 12: [10,11]} 
+print("Largest component GPT: ",largest_component_gpt(g))
+g = {0: [1,2], 1: [0,2], 2: [0,1]} 
+print("Largest component GPT: ",largest_component_gpt(g))
+
+
+g = {0: [1,2], 1: [0,2], 2: [0,1], 3: [4,5,-1], 4: [3,6,-2], -1: [3], -2: [4],
+      5: [3,6], 6: [4,5], 7: [], 8: [9], 9: [8], 10: [11,12], 11: [10,12], 12: [10,11]} 
+print("Largest component: ",largest_component(g))
+g = {0: [1,2], 1: [0,2], 2: [0,1]} 
+print("Largest component: ",largest_component(g))
+
+def islands_count(graph) -> int:
+    pass
+    
+
+def minimum_island_size(graph) -> int:
+    """
+    ???
+    """
+    pass
+
+# Directed Graph
+def nodes_connected(graph: dict, start: int, end: int) -> bool:
+    pass
 
 
 
