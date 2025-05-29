@@ -346,7 +346,6 @@ graph = {
 print(dijkstra_gpt(graph=graph, start='A'))
 
 
-
 # DAG
 # A → C ← B -> F
 # ↓            ↓
@@ -481,18 +480,15 @@ def largest_component_gpt(graph: dict) -> int:
 
     return max_count
 
-g = {0: [1,2], 1: [0,2], 2: [0,1], 3: [4,5,-1], 4: [3,6,-2], -1: [3], -2: [4],
+g1 = {0: [1,2], 1: [0,2], 2: [0,1], 3: [4,5,-1], 4: [3,6,-2], -1: [3], -2: [4],
       5: [3,6], 6: [4,5], 7: [], 8: [9], 9: [8], 10: [11,12], 11: [10,12], 12: [10,11]} 
-print("Largest component GPT: ",largest_component_gpt(g))
-g = {0: [1,2], 1: [0,2], 2: [0,1]} 
-print("Largest component GPT: ",largest_component_gpt(g))
+print("Largest component GPT: ", largest_component_gpt(g1))
+g2= {0: [1,2], 1: [0,2], 2: [0,1]} 
+print("Largest component GPT: ", largest_component_gpt(g2))
 
 
-g = {0: [1,2], 1: [0,2], 2: [0,1], 3: [4,5,-1], 4: [3,6,-2], -1: [3], -2: [4],
-      5: [3,6], 6: [4,5], 7: [], 8: [9], 9: [8], 10: [11,12], 11: [10,12], 12: [10,11]} 
-print("Largest component: ",largest_component(g))
-g = {0: [1,2], 1: [0,2], 2: [0,1]} 
-print("Largest component: ",largest_component(g))
+print("Largest component: ", largest_component(g1))
+print("Largest component: ", largest_component(g2))
 
 def islands_count(graph) -> int:
     pass

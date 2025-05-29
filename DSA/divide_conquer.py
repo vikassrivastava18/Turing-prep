@@ -184,7 +184,6 @@ def matrix_multi(a: list, b: list) -> list:
           2) Loop over both matrices and another nested one.
           3) Use Matrix multiplication formula for assigning result: C(i,j) = Sum(A[i,k] * B[k,j]
     """
-
     n = len(a)
     result = [[0 for _ in range(n)] for _ in range(n)]
 
