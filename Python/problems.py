@@ -1,55 +1,85 @@
+import unittest
 
 # Problem: Check whether a number is a prime.
-def is_prime(n: int) -> str:
+def is_prime(n: int) -> bool:
     """
     Parameters: integer
     Returns: A string saying whether input is a prime
     Plan: Use Python modulus function to check if the iput divides numbers coming before it.
     """
     if n < 2:
-        return 'Prime number starts from 2'
+        return False
     for i in range(2, int(n ** 0.5) + 1):
         if n % i == 0:
-            return f'Not prime, divided by {i}'
-    return 'Is prime'
-
-for i in range(100):
-  print(i, is_prime(i))
+            return False
+    return True
 
 
+## Test 
+class TestIsPrime(unittest.TestCase):
+    def test_primes(self):
+        self.assertTrue(is_prime(2))
+        self.assertTrue(is_prime(3))
+        self.assertTrue(is_prime(5))
+        self.assertTrue(is_prime(11))
+        self.assertTrue(is_prime(29))
+        self.assertTrue(is_prime(97))
+        self.assertTrue(is_prime(101))
+        self.assertTrue(is_prime(99991))
 
-# Problem: Return the remainder for two given numbers
-def remainder(a: int, b: int) -> (int | AssertionError):
-    """
-    Parameters: two integers (a, b)
-    Returns: Returns integer remainder for correct input, Assertion Error
-    Plan: Use assertion concept for input validation
-    """
-    assert  b!=0, 'Denominator should not be 0'
-    assert type(a) == int and type(b) == int, "Invalid inputs"
+    def test_non_primes(self):
+        self.assertFalse(is_prime(-10))
+        self.assertFalse(is_prime(0))
+        self.assertFalse(is_prime(1))
+        self.assertFalse(is_prime(4))
+        self.assertFalse(is_prime(9))
+        self.assertFalse(is_prime(15))
+        self.assertFalse(is_prime(25))
+        self.assertFalse(is_prime(100))
+        self.assertFalse(is_prime(99990))
 
-    r = a % b
-    return r
-print("Remainder:--------------------------------")
-print(remainder(5, 2))
-remainder(6, 2)
-remainder(5, 0)
-remainder(5, "2")
+test = TestIsPrime()
+test.test_primes()
+test.test_primes()
 
 
-# Problem:  Return the last element of a list usinng recursion
-def last_recursion(ls: list) -> any | str:
+class TestRemainder(unittest.TestCase):
+    def test_standard_cases(self):
+        self.assertEqual(remainder(10, 3), 1)
+        self.assertEqual(remainder(10, 2), 0)
+        self.assertEqual(remainder(7, 7), 0)
+
+    def test_zero_cases(self):
+        self.assertEqual(remainder(0, 5), 0)
+        self.assertEqual(remainder(123456, 1), 0)
+
+    def test_negative_cases(self):
+        self.assertEqual(remainder(-10, 3), 2)    # Python: -10 % 3 == 2
+        self.assertEqual(remainder(10, -3), -2)   # 10 % -3 == -2
+        self.assertEqual(remainder(-10, -3), -1)  # -10 % -3 == -1
+
+    def test_division_by_zero(self):
+        with self.assertRaises(AssertionError):
+            remainder(5, 0)
+
+test = TestRemainder()
+test.test_standard_cases()
+test.test_zero_cases()
+test.test_negative_cases()
+test.test_division_by_zero()
+
+
+# Problem:  Return the last element of a list using "recursion"
+def last_element_recursion(ls: list):
   if len(ls) == 0:
-    return "Empty list"
+    return None
   elif len(ls[1:]) == 0:
     return ls[0]
   else:
-    return last_recursion(ls[1:])
+    return last_element_recursion(ls[1:])
 
-print(last_recursion([1,2,3]))
-print(last_recursion([]))
-print(last_recursion([1]))
-
+assert last_element_recursion([1,2,3]) == 3, f"Assertion failed for [1,2,3], expected 3"
+assert last_element_recursion([]) == None, f"Assertion failed for [], expected None"
 
 # Problem: Find and return the sum of all digits in a string
 def sum_digits(s: str) -> int:
@@ -58,119 +88,26 @@ def sum_digits(s: str) -> int:
   return total
 
 print(sum_digits("12345"))
-
-sum_digits("abcd")
-
-try:
-  a = int(input("Tell me one number: "))
-  b = int(input("Tell me another number: "))
-  print("a/b = ", a/b)
-  print("a+b = ", a+b)
-except ValueError:
-  print("Could not convert to a number.")
-except ZeroDivisionError:
-  print("Can't divide by zero")
-  print("a/b = infinity")
-  print("a+b =", a+b)
-except:
-  print("Something went very wrong.")
-finally:
-  print("Program executed")
-
-test_grades = [[['peter', 'parker'], [80.0, 70.0, 85.0]],
-              [['bruce', 'wayne'], [100.0, 80.0, 74.0]]]
-# output [[['peter', 'parker'], [80.0, 70.0, 85.0], 78.33],
-#         [['bruce', 'wayne'], [100.0, 80.0, 74.0], 84.66]
-#         ]
-# Add a student who didn't appear in exam
-# [['deadpool'], []]]
-
-get_average = lambda ls: sum(ls)/len(ls)
-
-for student in test_grades:
-  name, grades = student
-  total = sum(grades)
-  avg = get_average(grades)
-  student.append(avg)
-print(test_grades)
-
-def avg(grades: list[int]) -> (int | None):
-  try:
-    return sum(grades)/len(grades)
-  except ZeroDivisionError:
-    print('warning: no grades data')
-    return None
-
-def print_even_indexs(word: str) -> list:
-    return word[::2]
-
-print_even_indexs("abcdefg")
+print(sum_digits("abcd"))
 
 import random
 import time
 
-def guess_with_binary(n: int) -> tuple[int, int]:
-    """
-    Params:  A number to guess
-    Returns: The guessed number, number of attempts
-    """
-    start_time = time.time()
-
-    num = random.randint(0, n)
-    print("Number to guess: ", num)
-
-    start, end = 0, n
-    guess = (start + end) // 2
-    count = 0
-    print(f"Guess: {guess}, Count: {count}")
-
-    while not guess == num:
-        if num > guess:
-            start = guess
-        else:
-            end = guess
-        guess = (start + end) // 2
-        count += 1
-        print(f"Guess: {guess}, Count: {count}")
-
-    end_time = time.time()
-    print("Total time: ", end_time - start_time)
-    return num, count
-
-guess_with_binary(100000000000000)
-
-def evaluate_quadratic(a, b, c, x) -> (float | int):
-    return a * x * x + b * x + c
-
-evaluate_quadratic(1,1,1,1)
-
-def two_quadratics(a1, b1, c1, x1, a2, b2, c2, x2) -> (float | int):
-    return (a1 * x1 ** 2 + b1 * x1 + c1) + (a1 * x2 ** 2 + b2 * x2 + c2)
-
-two_quadratics(1,1,1,1,1,1,1,1)
-
+# Problem: Return True if both words have the same characters
 def same_chars(w1: str, w2: str) -> bool:
     """
     Parameters: Two strings
     Returns: True if the two strings have same characters, else False
     Plan: Use concept of Sets for sameness.
     """
-    w1_formatted, w2_formatted = list(set(w1)), list(set(w2))
-
-    if not len(w1_formatted) == len(w2_formatted):
-        return False
-
-    for char in w1_formatted:
-        if not char in w2_formatted:
-            return False
-
-    return True
+    return set(w1) == set(w2)
 
 print(same_chars("abc", "cab"))     # prints True
 print(same_chars("abccc", "caaab")) # prints True
 print(same_chars("abcd", "cabaa"))  # prints False
 print(same_chars("abcabc", "cabz")) # prints False
 
+# Problem: Return the dot product of two vectors
 def dot_product(tA: tuple[int | float], tB: tuple[int | float]):
     """
     tA: a tuple of numbers
@@ -194,10 +131,11 @@ print(dot_product(tA, tB)) # prints (3,32)
 
 def remove_and_sort(Lin: list[int], k: int) -> None:
     """ 
-    Mutates Lin to re+move the first k elements in Lin and
-    then sorts the remaining elements in ascending order.
-    If you run out of items to remove, Lin is mutated to an empty list.
-    Does not return anything.
+    Task:
+        Mutates input list to remove the first k elements in input and
+        then sorts the remaining elements in ascending order.
+        If you run out of items to remove, Lin is mutated to an empty list.
+    Output: None
     """
     # Your code here
     global L
@@ -209,6 +147,7 @@ L = [1,6,3,5,7, 0]
 k = 2
 remove_and_sort(L, k)
 print(L)   # prints the list [3, 6]
+
 
 def count_sqrts(nums_list: list[int]) -> int:
     """
@@ -228,207 +167,9 @@ def count_sqrts(nums_list: list[int]) -> int:
 # Examples:
 print(count_sqrts([3,4,2,1,9,25])) # prints 3
 
-def check_brackets(chars: str) -> bool:
-    """
-    Parameters: A string of characters
-    Returns: True if all the brackets are closed in expected order
-    Plan: Create a bucket for open brackets.
-          When a new closed bracket is encountered match with last bracket in bucket.
-    """
-    bucket = []
-    open_brackets = ["{", "[", "("]
-    closed_brackets = ["}", "]", ")"]
-
-    for char in chars:
-        if char in open_brackets:
-            bucket.append(char)
-        elif char in closed_brackets:
-            if len(bucket) == 0:
-                return False
-
-            last_open = bucket[-1]
-            index = open_brackets.index(last_open)
-
-            if not closed_brackets.index(char) == index:
-                return False
-            else:
-                bucket = bucket[:-1]
-
-    return len(bucket) == 0
-
-print(check_brackets("{hello[])}"))
-print(check_brackets("{hello[]}"))
-print(check_brackets("{(hello[])}]"))
-print(check_brackets("{[({[()]})]}"))
-
-
-def max_sum_subarray(l: list[int|float], k: int) -> int:
-    """
-    Parameters: l -> list of numbers
-                k -> size of subarray
-    Returns:    maximum possible sum for subarray of size k
-    """
-    # Initialization
-    max_sum = sum(l[:k])
-
-    for i in range(1, len(l)-k+1):
-        new_sum = sum(l[i:i+k])
-        max_sum = max(new_sum, max_sum)
-    return max_sum
-
-rand_list = [random.randint(1,1000) for i in range(100000000)]
-
-import time, random
-
-start_time = time.time()
-
-# rand_list = [random.randint(1,1000) for i in range(100000000)]
-max_sum_subarray(rand_list, 5)
-
-end_time = time.time()
-
-print("Total time: ", end_time - start_time)
-
-def max_subarray_optimal(l: list, k: int) -> int:
-    """
-    Parameters: l -> list of numbers
-                k -> size of subarray
-    Returns the maximum possible sum for subarray of size k
-    """
-
-    if len(l) < k:
-        return None  # or raise an error if desired
-    # Initialization
-    curr_sum = sum(l[:k])
-    max_sum = curr_sum
-
-    for i in range(k, len(l)):
-        curr_sum += l[i] - l[i - k]  # slide window forward
-        max_sum = max(max_sum, curr_sum)
-
-    return max_sum
-
-import time, random
-start_time = time.time()
-
-# rand_list = [random.randint(1,1000) for i in range(100000000)]
-max_subarray_optimal(rand_list, 5)
-
-end_time = time.time()
-
-print("Total time: ", end_time - start_time)
-
-def longest_possible_substring_count(word):
-    """
-        Returns the longest sbstring in the word
-    """
-    count = 0
-    output = {}
-    start = 0
-    end = 0
-
-    for i in range(1, len(word)):
-        end += 1
-
-        substring = word[start: end]
-
-        if not len(set(substring)) == len(substring):
-            output[substring[:-1]] = len(substring)-1
-            start = end-1
-    output[word[start:]] = len(word[start:])
-
-    return output
-
-longest_possible_substring_count("abcadcbe")
-
-def longest_unique_substring_length(s):
-    seen = set()
-    left = 0
-
-    max_length = 0
-
-    for right in range(len(s)):
-        # If character is already in the current window, shrink from the left
-        while s[right] in seen:
-            seen.remove(s[left])
-            left += 1
-
-        seen.add(s[right])
-        max_length = max(max_length, right - left + 1)
-
-    return max_length
-
-longest_unique_substring_length("abcadcbb")
-
-def two_sum(l, s):
-    """
-        Return a pair of indexes of elements in list l that sum to s
-        Sliding windows concept used
-    """
-    left = 0
-    right = len(l) - 1
-
-    while left < right:
-        if l[left] + l[right] == s:
-            return (left, right)
-
-        elif l[left] + l[right] < s:
-            left += 1
-
-        else:
-            right -= 1
-
-    return None
-
-numbers = [1, 3, 4, 6, 8, 11]
-target = 10
-two_sum(numbers, target)
-
-numbers = [random.randint(1,100000) for i in range(100000)]
-numbers.sort()
-target = random.randint(0,10000)
-print("Target: ", target)
-two_sum(numbers, target)
-
-def three_sum(l: list, s:int=0) -> list:
-    """
-        Returns a triplet whose sum = s
-        Using sliding windows technique
-    """
-    result = []
-    l.sort()
-
-    for third in range(0, len(l)-2):
-        left = third + 1
-        right = len(l) - 1
-
-        while left < right:
-            if l[third] + l[right] + l[left] == s:
-                result.append([l[third], l[left], l[right]])
-                left += 1
-                right -= 1
-
-            elif l[third] + l[right] + l[left] < s:
-                left += 1
-            else:
-                right -=1
-
-    return result
-
-import random
-
-for i in range(5):
-    numbers = [random.randint(1,10) for i in range(10)]
-    print("Numbers: ", numbers)
-    target = random.randint(0,15)
-    print("Target: ", target)
-
-    result = three_sum(numbers, target)
-    print("Result: ", result)
-    print("-----------------------")
 
 from collections import Counter
-
+# Problem: Check whether two words are anagrams
 def is_anagram2(w1: str, w2:str) -> bool:
     print("Count: ",Counter(w1))
     return Counter(w1) == Counter(w2)
@@ -438,6 +179,7 @@ def is_anagram3(w1, w2):
 
 print(is_anagram2("aab", "abb"))
 # print(is_anagram3("aab", "abb"))
+
 
 def sum_str_lengths(L):
     """
@@ -465,7 +207,8 @@ def sum_str_lengths(L):
 # Examples:
 print(sum_str_lengths(["abcd", "e", "fg", ["abcd", ["e", "fg"]]]))
 
-def flatten(L):
+# Problem: Flatten a list
+def flatten(L: list) -> list:
     """
     L: a list
     Returns a copy of L, which is a flattened version of L
@@ -639,35 +382,32 @@ group_anagram(["eat", "tea", "ate", "pan", "nap"])
 
 print(sorted("word"))
 
-def encoded_string(string):
+def encoded_string(string: str) -> str:
     # "3[a]2[bc]5[a]","13[a]2[bc]5[a]", 2[abc3[de]]
+    """
+    Solve using index of open and closed ([]) brackets
+    TODO - Solve for nested problems
+    """
     result = ""
-    counter = 0
+    i = 0
+    # Iterate over the characters
+    while i < len(string):
+        try:
+            digit = int(string[i])
+            open_b = string.find("[", i)
+            closed_b = string.find("]", open_b)
+            digit = int(string[i: open_b])
 
-    while counter < len(string):
-        i=0
-        digit_str = ""
-        while True:
-            try:
-                digit = int(string[counter+i])
-                digit_str += str(digit)
-                i += 1
-            except Exception as e:
-                break
-            finally:
-                digit = int(digit_str)
-        s, e = string.find("[", counter), string.find("]", counter)
-        inter_string = string[s+1:e]
-        result += inter_string * digit
-
-        counter = e+1
+            result += string[open_b+1: closed_b] * digit
+            i = closed_b + 1
+        except ValueError:
+            result += string[i]
+            i += 1
 
     return result
-
 encoded_string("13[a]10[bc]")
 
-"3[a]2[bc]".find("]", 4)
-
+# Backtractracking
 def generate_subsets(nums):
     result = []
 
@@ -701,13 +441,12 @@ print(valid_anagram("aab", "baa"))
 print(valid_anagram("papa", "appa"))
 print(valid_anagram("aab", "bba"))
 
-students = []
-
-with open("names.csv") as file:
-    for line in file:
-        name, house = line.rstrip().split(",")
-        students.append({"name": name, "house": house})
-        
-students = sorted(students, key=lambda student: (student["name"], student["house"]))
-
-print("Result: ", students)
+def sorted_students():
+    students = []
+    # With 'with' the file is closed automatically.
+    with open("names.csv") as file:
+        for line in file:
+            name, house = line.rstrip().split(",")
+            students.append({"name": name, "house": house})
+            
+    students = sorted(students, key=lambda student: (student["name"], student["house"]))
