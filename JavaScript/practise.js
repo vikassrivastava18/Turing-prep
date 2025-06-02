@@ -38,7 +38,6 @@ console.log(isPalindrome("malayalam"));
 function repeatingWordsCount(sentence) {
     let uniqueWords = new Set(sentence.split(" "))
     return sentence.split(" ").length - Array.from(uniqueWords).length
-
 }
 
 let uniqueWords = "Once upon a time there was a bear in the jungle the end"
@@ -200,7 +199,6 @@ function separator(word) {
 console.log(separator("hello123"));
 
 
-
 function encodedString(str) {
     // "3[a]2[bc]5[a]","13[a]2[bc]5[a]", "2[abc3[de]]""
     let result = "";
@@ -278,7 +276,6 @@ console.log(binarySearch([5, 14, 30], 14));
 console.log(binarySearch([5, 14,20, 30], 20));
 console.log(binarySearch([5, 14, 30], 10));
 
-
 function checkBrackets(str) {
     const open = ["[", "{", "("];
     const closed = ["]", "}", ")"];
@@ -308,3 +305,86 @@ var lan = [1,2,3]
 lan.length = 0
 lan.push(4)
 console.log("lan",lan);
+
+function isPrime(n) {
+    // Check that number is at least 2
+    // Use modulus to check condition for prime.
+    if (n < 2) return false
+    else if (n === 2) return true
+
+    for (let i=2; i < n; i++) {
+        if (n % i === 0) return false
+    }
+    return true
+}
+
+console.log(isPrime(2));
+console.log(isPrime(3));
+console.log(isPrime(4));
+console.log(isPrime(5));
+
+
+function sameChars(w1, w2) {
+    let w1Set = new Set(w1);
+    let w2Set = new Set(w2);
+
+    if (w1Set.size !== w2Set.size) return false;
+
+    for (let char of w1Set) {
+        if (!w2Set.has(char)) return false;
+    }
+    return true;
+}
+
+console.log(sameChars("abba", "baba")); // true
+console.log(sameChars("abba", "baca")); // false
+
+function sameChars2(w1, w2) {
+    w1Arr = w1.split()
+    w2Arr = w2.split()
+    w1Arr.sort
+    w2Arr.sort()
+    return w1Arr.join("") === w2Arr.join("")
+}
+
+console.log(sameChars2("abba", "baba")); // true
+console.log(sameChars2("abba", "baca")); // false
+
+function dotProduct(tA, tB) {
+    let sum = 0;
+
+    for (let i=0; i<tA.length; i++) {
+        sum += tA[i] * tB[i]
+    }
+    return sum
+}
+
+console.log(dotProduct([1,2,3], [3,2,1]));
+
+function countSquareRoots(numArr) {
+    let result = [];
+    
+    for (let element of numArr) {
+        if (numArr.includes(element ** 2)) result.push(element)
+    }
+    return result;
+}
+
+console.log(countSquareRoots([3,4,2,1,9,25]));
+
+
+function fibonacciMemoised(n, memo={1: 1, 2: 1}) {
+    /*
+    Return fib of n if in memo
+    Else return the sum of previous two
+    Update the memo
+    */
+
+   if (Object.keys(memo).includes(n.toString())) return memo[n]
+   fib1 = fibonacciMemoised(n-1, memo)
+   fib2 = fibonacciMemoised(n-2, memo)
+   memo[n] = fib1 + fib2
+   return memo[n]
+}
+
+console.log(fibonacciMemoised(120));

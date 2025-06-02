@@ -114,7 +114,8 @@ def closest_num_pairs(l: list[int]) -> tuple[list[int]]:
     """
         Parameters: l -> list of integers
         Task: return the two points closest to each other. 
-        Plan: sort the list, in one iteration figure out the closest points by comparing with previous closest.
+        Plan: sort the list, in one iteration figure out the closest points by 
+                comparing with previous closest.
     """
     l_copy = l[:]
     l_copy.sort()
@@ -195,13 +196,6 @@ def matrix_multi(a: list, b: list) -> list:
     return result
 
 import random
-# n = random.randint(15,20)
-# a = [[random.randint(0,10) for _ in range(n)] for _ in range(n)]
-# b = [[random.randint(0,10) for _ in range(n)] for _ in range(n)]
-# print("Dimension: ", n)
-# print(a)
-# print(b)
-# print(matrix_multi(a, b))
 
 def matrix_mul_general(a: list, b: list) -> list:
     """
@@ -237,3 +231,27 @@ print(f"m: {m}, n: {n}, k: {k}")
 print(f"a: {a}, b: {b}")
 print(matrix_mul_general(a, b))
 
+def quick_sort(ls: list) -> list:
+    """
+        Pick first element to be pivot.
+        Create partition with left part. smaller than pivot right, bigger
+        Perform sorting on left and half partitions
+        Ex: [3, 8, 2, 5, 1, 4, 7, 6]
+    """
+    if len(ls) == 1 or len(ls) == 0:
+        return ls
+    
+    pivot = ls[0]
+    i = 1
+    for j in range(1, len(ls)):
+        if ls[j] < pivot:
+            ls[i], ls[j] = ls[j], ls[i]
+            i += 1
+
+    ls[0], ls[i-1] = ls[i-1], ls[0]
+    left, right = quick_sort(ls[:i-1]), quick_sort(ls[i:])
+    return  left + [ls[i-1]] + right
+
+
+l = [random.randint(1,100) for i in range(10)]
+print(quick_sort(l))

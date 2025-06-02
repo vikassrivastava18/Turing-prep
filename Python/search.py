@@ -65,7 +65,6 @@ print(check_brackets("{hello[]}"))
 print(check_brackets("{(hello[])}]"))
 print(check_brackets("{[({[()]})]}"))
 
-
 def max_sum_subarray(l: list[int|float], k: int) -> int:
     """
     Parameters: l -> list of numbers

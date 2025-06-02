@@ -42,7 +42,6 @@ test = TestIsPrime()
 test.test_primes()
 test.test_primes()
 
-
 class TestRemainder(unittest.TestCase):
     def test_standard_cases(self):
         self.assertEqual(remainder(10, 3), 1)
@@ -117,12 +116,13 @@ def dot_product(tA: tuple[int | float], tB: tuple[int | float]):
     * first element is the length of one of the tuples
     * second element is the sum of the pairwise products of tA and tB
     """
-    _sum = 0
+    # _sum = 0
 
-    for i in range(len(tA)):
-        _sum += tA[i] * tB[i]
+    # for i in range(len(tA)):
+    #     _sum += tA[i] * tB[i]
 
-    return (len(tA), _sum)
+    # return (len(tA), _sum)
+    return sum([tA[i] * tB[i] for i in range(len(tA))])
 
 # Examples:
 tA = (1, 2, 3)
@@ -407,7 +407,7 @@ def encoded_string(string: str) -> str:
     return result
 encoded_string("13[a]10[bc]")
 
-# Backtractracking
+# Backtractracking ????
 def generate_subsets(nums):
     result = []
 
