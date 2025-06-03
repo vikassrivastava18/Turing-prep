@@ -48,9 +48,25 @@ console.log(nonBinaries.test("0001101010801")); // true due to 8
 console.log(/\d+/.test("123")); // true
 console.log(/\d*/.test("hello")); // true
 console.log(/neighbou?r/.test("neighbor")); // true
+console.log(/o+k+/.test("oooookk")); // true
+
 
 const dateTime = /\d{2}-\d{2}-\d{4} \d{2}:\d{2}/;
 console.log(dateTime.test("02-04-2023 12:5")) // false
+
+
+// Grouping subexpressions
+const cartoonCrying = /boo+(hoo+)+/i;
+console.log(cartoonCrying.test("Booohoohoooo")); // true
+
+
+// Matches and Subgroups
+let match = /\d+/.exec("He scored a 100");
+console.log(match);
+console.log(match.index);
+
+let domain = /@.*/.exec("vikas@gmail.com")
+console.log(domain);
 
 
 
