@@ -21,7 +21,6 @@ function reverse(word) {
     wordArray = word.split("")
     wordArray = wordArray.reverse()
     wordArray = wordArray.join("")
-
     return wordArray
 }
 
@@ -388,3 +387,18 @@ function fibonacciMemoised(n, memo={1: 1, 2: 1}) {
 }
 
 console.log(fibonacciMemoised(120));
+
+function anagramNew(w1, w2) {
+    //  Returns true if w2 is a shuffled version of w1
+    let w1Arr = w1.split("");
+    let w2Arr = w2.split("");
+
+    w1ArrSorted = w1Arr.sort()
+    w2ArrSorted = w2Arr.sort()
+
+    return w1ArrSorted.join("") === w2ArrSorted.join("")
+}
+
+console.log(anagramNew("appa", "papa"));
+console.log(anagramNew("poop", "oopp"));
+console.log(anagramNew("appa", "papo"));

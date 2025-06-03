@@ -1,6 +1,6 @@
 /*
  Regular Expression
- Create a regular expression object: 
+ Create a regular expression object: /pattern/
 */
 
 let aPlus = /A\+/;
@@ -68,6 +68,55 @@ console.log(match.index);
 let domain = /@.*/.exec("vikas@gmail.com")
 console.log(domain);
 
+// Match email
+emailPattern = /^[a-zA-Z].*@.*.com$/
+console.log(emailPattern.test("vikas@gmail.com"));
+console.log(emailPattern.test("1vikas@gmail.com"));
+console.log(emailPattern.test("vikas@gmail.com.hack"));
+
+function getDate(string) {
+    const pattern = /(\d{1,2})-(\d{1,2})-(\d{4})/
+    let [_, month, day, year] = pattern.exec(string)
+    console.log(_, month, day, year);
+    
+    return new Date(year, month-1, day)
+}
+console.log(getDate("11-10-2025"));
+
+// Replace
+console.log("Borobudur".replace(/[ou]/, "a")); // Barobudur
+console.log("Borobudur".replace(/[ou]/g, "a")); // Barabadar
 
 
+function removeComments(string) {
+    return string.replace(/\/\/.*|\/\*[^]*\*\//g, "");
+}
 
+const s = `// Replace
+function replaceSingleLine() {}`
+console.log(removeComments(s));
+
+const s2 = `/*
++ One or more -> "'123'"
+* Zero or more -> "''"
+? Optional -> "neighbou?r"
+*/
+function replaceMultiLine() {}
+`
+console.log(removeComments(s2));
+
+
+/* Validate an email
+    -Should start with a word character only
+    -Should contain '@'
+    -Should be followed with gmail|yahoo
+    -Should end with .com
+*/
+const emailValidator = /^[a-z]\w.*@(gmail|yahoo).*.com$/
+console.log(emailValidator.test("vikas@gmail.com")); //true
+console.log(emailValidator.test("vikas@yahoo.com")); //true
+console.log(emailValidator.test("vikas@yahoo.edu.com")); //true
+console.log(emailValidator.test("v#$ikas@gmail.com")); // false
+console.log(emailValidator.test("vikas@gmail.com.in")); // false
+console.log(emailValidator.test("123vikas@gmail.com")); // false
+console.log(emailValidator.test("vikas123@gmail.com")); // true
