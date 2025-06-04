@@ -4,7 +4,6 @@ class QuickFindUF:
     Save all objects as indexes from 0 to n - 1
     Perform the Union and Find operation
     """
-
     def __init__(self, n):
         self.ids = [i for i in range(n)]
 

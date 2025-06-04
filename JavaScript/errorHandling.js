@@ -94,3 +94,44 @@ function multiplyAnyhow(a, b) {
 }
 
 console.log(multiplyAnyhow(2,3));
+
+
+
+const box = new class {
+    locked = true;
+    #content = [];
+  
+    unlock() { this.locked = false; }
+    lock() { this.locked = true;  }
+    get content() {
+      if (this.locked) throw new Error("Locked!");
+      return this.#content;
+    }
+  };
+  
+  function withBoxUnlocked(body) {
+    // Your code here.
+    if (!box.locked) keepOpen = true
+    else keepOpen = false
+    try {
+      box.unlock()
+      body()
+    } finally {
+      if (!keepOpen) box.lock()
+    }
+    
+  }
+  
+  withBoxUnlocked(() => {
+    box.content.push("gold piece");
+  });
+  
+  try {
+    withBoxUnlocked(() => {
+      throw new Error("Pirates on the horizon! Abort!");
+    });
+  } catch (e) {
+    console.log("Error raised: " + e);
+  }
+  console.log(box.locked);
+  // → true

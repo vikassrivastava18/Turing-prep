@@ -402,3 +402,4 @@ function anagramNew(w1, w2) {
 console.log(anagramNew("appa", "papa"));
 console.log(anagramNew("poop", "oopp"));
 console.log(anagramNew("appa", "papo"));
+

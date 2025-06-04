@@ -1,15 +1,14 @@
-function greet(person: string, date: Date) {
-    console.log(`Hello ${person}, today is ${date}!`);
+function greets(person: string, date: Date) {
+    console.log(`Hello ${person}, today is ${date.toDateString()}!`);
 }
 
 const user = "Jane User";
 const date = new Date();
-// greet(user, date);
 
 let numArray: number[] = [];
 let strArray: string[] = ["a", "b", "c", "d", "e"];
 
-function printName(obj: { first: string, last?: string }) {
+const printName = function (obj: { first: string, last?: string }) {
     console.log(obj.first);
     console.log(obj.last ? obj.last.toUpperCase() : "No last name");
 }
@@ -17,7 +16,7 @@ function printName(obj: { first: string, last?: string }) {
 // printName({first: "John", last: "Doe"});
 // printName({first: "Jane"});
 
-function printId(id: number | string) {
+const printId = function (id: number | string) {
     if (typeof id === "string") {
         console.log("Your ID is: " + id.toUpperCase());
     }
@@ -29,7 +28,7 @@ function printId(id: number | string) {
 // printId(101);
 // printId("vikas srivastava");
 
-function welcomePeople(people: string[] | string) {
+const welcomePeople = function (people: string[] | string) {
     if (Array.isArray(people)) {
         console.log("Hello: " + people.join(", "));
     }
@@ -46,7 +45,7 @@ interface Point {
     y: number;
 }
 
-function printCoord(pt: Point) {
+const printCoord = function (pt: Point) {
     console.log(`X cordinate: ${pt.x}`);
     console.log(`Y cordinate: ${pt.y}`);
 }
