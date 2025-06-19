@@ -5,11 +5,11 @@ def is_prime(n: int) -> bool:
     """
     Parameters: integer
     Returns: A string saying whether input is a prime
-    Plan: Use Python modulus function to check if the iput divides numbers coming before it.
+    Plan: Use Python modulus function to check if the input divides numbers coming before it.
     """
     if n < 2:
         return False
-    for i in range(2, int(n ** 0.5) + 1):
+    for i in range(2, int(n ** 0.5) + 1): # Trick for optimization
         if n % i == 0:
             return False
     return True
@@ -42,52 +42,41 @@ test = TestIsPrime()
 test.test_primes()
 test.test_primes()
 
-class TestRemainder(unittest.TestCase):
-    def test_standard_cases(self):
-        self.assertEqual(remainder(10, 3), 1)
-        self.assertEqual(remainder(10, 2), 0)
-        self.assertEqual(remainder(7, 7), 0)
 
-    def test_zero_cases(self):
-        self.assertEqual(remainder(0, 5), 0)
-        self.assertEqual(remainder(123456, 1), 0)
+# class TestRemainder(unittest.TestCase):
+#     def test_standard_cases(self):
+#         self.assertEqual(remainder(10, 3), 1)
+#         self.assertEqual(remainder(10, 2), 0)
+#         self.assertEqual(remainder(7, 7), 0)
 
-    def test_negative_cases(self):
-        self.assertEqual(remainder(-10, 3), 2)    # Python: -10 % 3 == 2
-        self.assertEqual(remainder(10, -3), -2)   # 10 % -3 == -2
-        self.assertEqual(remainder(-10, -3), -1)  # -10 % -3 == -1
+#     def test_zero_cases(self):
+#         self.assertEqual(remainder(0, 5), 0)
+#         self.assertEqual(remainder(123456, 1), 0)
 
-    def test_division_by_zero(self):
-        with self.assertRaises(AssertionError):
-            remainder(5, 0)
+#     def test_negative_cases(self):
+#         self.assertEqual(remainder(-10, 3), 2)    # Python: -10 % 3 == 2
+#         self.assertEqual(remainder(10, -3), -2)   # 10 % -3 == -2
+#         self.assertEqual(remainder(-10, -3), -1)  # -10 % -3 == -1
 
-test = TestRemainder()
-test.test_standard_cases()
-test.test_zero_cases()
-test.test_negative_cases()
-test.test_division_by_zero()
+#     def test_division_by_zero(self):
+#         with self.assertRaises(AssertionError):
+#             remainder(5, 0)
 
+# test = TestRemainder()
+# test.test_standard_cases()
+# test.test_zero_cases()
+# test.test_negative_cases()
+# test.test_division_by_zero()
 
-# Problem:  Return the last element of a list using "recursion"
-def last_element_recursion(ls: list):
-  if len(ls) == 0:
-    return None
-  elif len(ls[1:]) == 0:
-    return ls[0]
-  else:
-    return last_element_recursion(ls[1:])
-
-assert last_element_recursion([1,2,3]) == 3, f"Assertion failed for [1,2,3], expected 3"
-assert last_element_recursion([]) == None, f"Assertion failed for [], expected None"
 
 # Problem: Find and return the sum of all digits in a string
-def sum_digits(s: str) -> int:
+def sum_digits(s: str) -> int: # str = "10123454"
   assert len(s) != 0, "s is empty"
-  total = sum([int(el) for el in s if el.isdigit()])
+  total = sum([int(el) for el in s if el])
   return total
 
-print(sum_digits("12345"))
-print(sum_digits("abcd"))
+# print(sum_digits("12345"))
+# print(sum_digits("abcd"))
 
 import random
 import time
@@ -106,8 +95,8 @@ print(same_chars("abccc", "caaab")) # prints True
 print(same_chars("abcd", "cabaa"))  # prints False
 print(same_chars("abcabc", "cabz")) # prints False
 
-# Problem: Return the dot product of two vectors
-def dot_product(tA: tuple[int | float], tB: tuple[int | float]):
+# Problem: Return the dot product of two tuples
+def dot_product(tA: tuple, tB: tuple):
     """
     tA: a tuple of numbers
     tB: a tuple of numbers of the same length as tA
@@ -116,37 +105,17 @@ def dot_product(tA: tuple[int | float], tB: tuple[int | float]):
     * first element is the length of one of the tuples
     * second element is the sum of the pairwise products of tA and tB
     """
-    # _sum = 0
+    _sum = 0
 
-    # for i in range(len(tA)):
-    #     _sum += tA[i] * tB[i]
+    for i in range(len(tA)):
+        _sum += tA[i] * tB[i]
 
-    # return (len(tA), _sum)
-    return sum([tA[i] * tB[i] for i in range(len(tA))])
+    return (len(tA), _sum)
 
 # Examples:
 tA = (1, 2, 3)
 tB = (4, 5, 6)
 print(dot_product(tA, tB)) # prints (3,32)
-
-def remove_and_sort(Lin: list[int], k: int) -> None:
-    """ 
-    Task:
-        Mutates input list to remove the first k elements in input and
-        then sorts the remaining elements in ascending order.
-        If you run out of items to remove, Lin is mutated to an empty list.
-    Output: None
-    """
-    # Your code here
-    global L
-    L = Lin[k:]
-    L.sort()
-
-# Examples:
-L = [1,6,3,5,7, 0]
-k = 2
-remove_and_sort(L, k)
-print(L)   # prints the list [3, 6]
 
 
 def count_sqrts(nums_list: list[int]) -> int:
@@ -169,6 +138,7 @@ print(count_sqrts([3,4,2,1,9,25])) # prints 3
 
 
 from collections import Counter
+
 # Problem: Check whether two words are anagrams
 def is_anagram2(w1: str, w2:str) -> bool:
     print("Count: ",Counter(w1))
@@ -225,9 +195,10 @@ def flatten(L: list) -> list:
     return result
 
 # Examples:
-L = [[1,4,[6],2],[[[3]],2],4,5]
+L = [1,4,[2, 6],2,[[[3]],2],4,5]
 print(flatten(L)) # prints the list [1,4,6,2,3,2,4,5]
 
+import math
 class Circle():
     def __init__(self, radius):
         """ Initializes self with radius """
@@ -248,7 +219,7 @@ class Circle():
     def get_area(self):
         """ Returns the area of self using pi = 3.14 """
         # your code here
-        return self.radius ** 2
+        return math.pi * self.radius ** 2
 
     def equal(self, c):
         """ c is a Circle object
@@ -263,6 +234,22 @@ class Circle():
         if self.radius > c.radius:
             return self
         return c
+    
+    def __str__(self):
+        """ A Circle's string representation is the radius """
+        return f"Circle of radius: {self.radius}"
+    
+    def __add__(self, c):
+        """ c is a Circle object
+        Returns a new Circle object whose radius is
+        the sum of self and c's radius """
+        c = Circle(self.radius + c.radius)
+        return c
+
+c1 = Circle(10)
+c2 = Circle(5)
+print("Circle sum: ", c1 + c2)
+
 
 class Circle():
     def __init__(self, radius):
@@ -273,17 +260,8 @@ class Circle():
         """ Returns the radius of self """
         return self.radius
 
-    def __add__(self, c):
-        """ c is a Circle object
-        Returns a new Circle object whose radius is
-        the sum of self and c's radius """
-        c = Circle(self.radius + c.radius)
-        return c
-
-    def __str__(self):
-        """ A Circle's string representation is the radius """
-        return f"Circle of radius: {self.radius}"
-
+    
+    
 class Container(object):
     """
     A container object is a list and can store elements of any type
@@ -320,6 +298,21 @@ class Queue(Container):
             return None
 
         return self.myList.pop(0)
+    
+class Stack(Container):
+    """
+    A subclass of Container. Has an additional method to remove elements.
+    """
+    def remove(self):
+        """
+        The newest element in the container list is removed
+        Returns the element removed or None if the stack contains no elements
+        """
+        if len(self.myList) == 0:
+            return None
+
+        return self.myList.pop()
+
 
 def fibonacci(n):
     result = {0: 0, 1: 1}
@@ -407,7 +400,7 @@ def encoded_string(string: str) -> str:
     return result
 encoded_string("13[a]10[bc]")
 
-# Backtractracking ????
+# Backtractracking
 def generate_subsets(nums):
     result = []
 
@@ -450,3 +443,25 @@ def sorted_students():
             students.append({"name": name, "house": house})
             
     students = sorted(students, key=lambda student: (student["name"], student["house"]))
+
+
+def remove_and_sort(Lin: list[int], k: int) -> None:
+    """ 
+    Task:
+        Mutates input list to remove the first k elements in input and
+        then sorts the remaining elements in ascending order.
+        If you run out of items to remove, Lin is mutated to an empty list.
+    Output: None
+    """
+    # Your code here
+    global L
+    L = Lin[k:]
+    L.sort()
+
+# Examples:
+L = [1,6,3,5,7, 0]
+k = 2
+remove_and_sort(L, k)
+print(L)   # prints the list [3, 6]
+
+

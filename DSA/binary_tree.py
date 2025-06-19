@@ -86,7 +86,8 @@ a_tree.level_order()
 
 
 # Binary Search Tree
-"""     10
+"""
+        10
        /  \
       5    15
      / \     \

@@ -147,7 +147,7 @@ class MinCoins:
     def __init__(self):
         self.memo = {0: 1}
 
-    def compute(self, coins, target):
+    def compute(self, coins: list, target: int) -> int:
         if target == 0:
             return 0
         if target < 0:
@@ -163,6 +163,7 @@ class MinCoins:
 
         self.memo[target] = min_count
         return min_count
+    
 
 print("Class Based -----------")
 print(MinCoins().compute([1,4,5], 13))
@@ -261,7 +262,7 @@ print(f"Tribonacci of 5: ", tribonacci(5))
 
 def max_path_sum(graph, position: int, memo=None) -> int:
     """
-    Graph: Contains the position (implicit) along with weight.
+    Graph: Contains the position (implicit) with weights.
     Plan: Recursively find the max path sum for subproblems
     Base case: last square position with weight as it's max path cost
     """

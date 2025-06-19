@@ -140,10 +140,12 @@ def longest_unique_substring_length(s):
 
 print(longest_unique_substring_length("abcadcbb"))
 
+
 def two_sum(l, s):
     """
         Return a pair of indexes of elements in list l that sum to s
-        Sliding windows concept used
+        Sliding windows concept used,
+        list is sorted
     """
     left = 0
     right = len(l) - 1

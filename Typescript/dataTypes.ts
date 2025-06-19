@@ -38,7 +38,6 @@ function bad(s) {
 }
 
 
-
 // Function
 function add(x: number, y: number): number {
     return x + y;
@@ -208,9 +207,9 @@ enum UserResponse {
    
   function respond(recipient: string, message: UserResponse): void {
     console.log(`To: ${recipient}, Message: ${message}`);
-    
   }
    
+  
   respond("Princess Caroline", UserResponse.Yes);
 
 

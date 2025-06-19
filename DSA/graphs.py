@@ -34,6 +34,15 @@ class Queue(Stack):
         return f"Queue collection: {self.collection}"
     
 
+st = Stack([1,2,3])
+qu = Queue([5,5,6])
+st.add(0)
+qu.add(0)
+
+print(st.remove())
+print(qu.remove())
+
+# Undirected graph
 def maze_connected(start: int, end: int, connected_pairs: list, util= 'stack') -> bool:
     """
     Given a list of connected pairs in a maze: [(1,2), [2,3), ...]
@@ -402,6 +411,7 @@ def count_components(graph: dict) -> int:
 
     return comp_count
 
+
 # assert count_components(g) == 3, f"Components count not correct, should be 3"
 
 
@@ -491,10 +501,10 @@ def minimum_island_size(graph) -> int:
     """
     pass
 
+
 # Directed Graph
 def nodes_connected(graph: dict, start: int, end: int) -> bool:
     pass
-
 
 
 
