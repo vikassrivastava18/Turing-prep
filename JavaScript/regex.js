@@ -112,6 +112,7 @@ console.log(removeComments(s2));
     -Should be followed with gmail|yahoo
     -Should end with .com
 */
+
 const emailValidator = /^[a-z]\w.*@(gmail|yahoo).*.com$/
 console.log(emailValidator.test("vikas@gmail.com")); //true
 console.log(emailValidator.test("vikas@yahoo.com")); //true

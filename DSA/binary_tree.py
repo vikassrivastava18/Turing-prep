@@ -103,9 +103,10 @@ class BinarySearchTree(BinaryTree):
                 node = node.left
             else:
                 node = node.right
-
         return False
 
+    def insert(self, target):
+        pass
 root = Node(10)
 b = Node(5)
 c = Node(15)
