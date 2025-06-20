@@ -155,3 +155,22 @@ console.log( lazy.stomach ); // apple
 // console.log( lazy.stomach ); // apple
 
 
+
+let animal3 = {
+  name: "Animal",
+  eat() {
+    console.log(`${this.name} eats.`);
+  }
+};
+
+let rabbit3 = {
+  __proto__: animal3,
+  name: "Rabbit",
+  eat() {
+    // that's how super.eat() could presumably work
+    this.__proto__.eat.call(this); // (*)
+    // this.__proto__.eat(); // (*)
+  }
+};
+
+rabbit3.eat(); // Rabbit eats.
