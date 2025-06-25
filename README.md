@@ -1,9 +1,5 @@
 # Turing Coding Assignment Experience
 
-This document summarizes my experience solving coding problems during a technical assessment for Turing. I gave the Python and JavaScript coding tests.
-
----
-
 ## Problem 1: Valid Brackets
 
 **Description:**  
