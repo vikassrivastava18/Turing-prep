@@ -212,6 +212,3 @@ enum UserResponse {
   
   respond("Princess Caroline", UserResponse.Yes);
 
-
-
-

@@ -199,8 +199,6 @@ function separator(word) {
 
 console.log(separator("hello123"));
 
-
-
 function encodedString(str) {
     // "3[a]2[bc]5[a]","13[a]2[bc]5[a]", "2[abc3[de]]""
     let result = "";
@@ -373,9 +371,9 @@ console.log(countSquareRoots([3,4,2,1,9,25]));
 
 function fibonacciMemoised(n, memo={1: 1, 2: 1}) {
     /*
-    Return fib of n if in memo
-    Else return the sum of previous two
-    Update the memo
+        Return fib of n if in memo
+        Else return the sum of previous two
+        Update the memo
     */
 
    if (Object.keys(memo).includes(n.toString())) return memo[n]

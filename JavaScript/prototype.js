@@ -155,7 +155,6 @@ console.log( lazy.stomach ); // apple
 // console.log( lazy.stomach ); // apple
 
 
-
 let animal3 = {
   name: "Animal",
   eat() {
@@ -169,7 +168,8 @@ let rabbit3 = {
   eat() {
     // that's how super.eat() could presumably work
     this.__proto__.eat.call(this); // (*)
-    // this.__proto__.eat(); // (*)
+    // this.__proto__.eat(); // Will not pass the object name
+    // super.eat() // This will give expected result
   }
 };
 

@@ -136,7 +136,6 @@ class Clock2 {
     }
 }
 
-
 // let clock2 = new Clock2('h:m:s');
 // clock2.start();
 // setTimeout(clock2.stop, 5000)
@@ -232,10 +231,10 @@ class ExtendedClock extends Clock2 {
         this.timer = setInterval(this.render, this.percision)
     }
 
-    start() {
-        this.render();
-        this.timer = setInterval(() => this.render(), this.precision);
-    }
+    // start() {
+    //     this.render();
+    //     this.timer = setInterval(() => this.render(), this.precision);
+    // }
 }
 
 let extClock = new ExtendedClock('h:m:s', 2000)
