@@ -28,13 +28,14 @@ class Button {
     }
 
     click() {
-        console.log(this.value);
+        console.log("button clicked!", this.value);
     }
 }
 
 let button = new Button("hello");
 
-// setTimeout(button.click, 1000); // undefined
+
+setTimeout(button.click.bind(button), 1000); // now logs "button clicked! hello"
 
 class Button2 {
     constructor(value) {
@@ -46,9 +47,9 @@ class Button2 {
     }
 }
 
-let button2 = new Button2("hello");
+let button2 = new Button2("hello vikas");
 
-// setTimeout(button2.click, 1000);
+setTimeout(button2.click, 1000);
 
 
 // Class kinda equivalent
@@ -180,8 +181,7 @@ class Rabbit extends Animal {
     }
 
     details () {
-        console.log(`${this.name} has an ear of length ${this.earLength}`);
-        
+        console.log(`${this.name} has an ear of length ${this.earLength}`);        
     }
 
     hide() {
@@ -238,4 +238,4 @@ class ExtendedClock extends Clock2 {
 }
 
 let extClock = new ExtendedClock('h:m:s', 2000)
-extClock.start();
+// extClock.start();
