@@ -64,15 +64,19 @@ function moneyTransfer(from, to, amount) {
             accouts[first] -= amount;
             accouts[second] += amount;                 
         }
-    } catch (e) {
-        console.error("Error: ", e.message);
-        // console.log("Some error occured: ", e);
-    } finally {
+        else throw new Error(`The person ${first} does not have sufficient balance for transfer.`)
+    } catch(e) {
+        console.log("Some error occured: ", e.message);
+        
+    } 
+    finally {
         console.log("Accounts: ", accouts);       
     }
 }
 
+console.log(moneyTransfer("vikas", "akash", 200));
 console.log(moneyTransfer("vikas", "aakash", 100));
+console.log(moneyTransfer("vikas", "akash", 100));
 
 
 class MultiplicationUnitFailure extends Error {}
@@ -94,7 +98,6 @@ function multiplyAnyhow(a, b) {
 }
 
 console.log(multiplyAnyhow(2,3));
-
 
 
 const box = new class {

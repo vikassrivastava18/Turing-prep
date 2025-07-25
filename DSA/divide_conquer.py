@@ -180,7 +180,7 @@ def inversion_large(file: str) -> int:
 
 def matrix_multi(a: list, b: list) -> list:
     """
-    Task: Should return the multiplication output
+    Task: Should return the multiplication output of two matrices a and b.
     Plan: 1) Initialize a n * n Matrix
           2) Loop over both matrices and another nested one.
           3) Use Matrix multiplication formula for assigning result: C(i,j) = Sum(A[i,k] * B[k,j]
@@ -253,5 +253,6 @@ def quick_sort(ls: list) -> list:
     return  left + [ls[i-1]] + right
 
 
-l = [random.randint(1,100) for i in range(10)]
-print(quick_sort(l))
+for j in range(5):
+    l = [random.randint(1,100) for i in range(20)]
+    print("Sorted with Quiclk sort: ",quick_sort(l))

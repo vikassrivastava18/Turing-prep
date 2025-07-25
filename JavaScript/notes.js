@@ -56,7 +56,132 @@ console.log(arrNew.indexOf(2)); // 1
 let nameNew = "vikas"
 console.log(nameNew.indexOf("ka")); // 2
 
+// Optional Arguments
 
+function minus(a, b) {
+    /* 1)
+    if (b === undefined) return -a
+    return a - b;
+      2)
+    
+    */
+    return b ? a - b : -1
+}
+
+console.log("Difference: ", minus(4,1));
+console.log("Difference: ", minus(4));
+
+
+// Default Arguments
+function sayHello(name="Vikas") {
+    console.log(`Hello: ${name}`);    
+}
+
+// Closure
+
+function wrapValue(n) {
+    let local = n;
+    return () => local;
+}
+
+let wrap1 = wrapValue(1);
+let wrap2 = wrapValue(2)
+console.log(wrap1());
+console.log(wrap2());
+
+
+function multiplier(factor) {
+    return number => number * factor
+}
+
+let twice = multiplier(2);
+console.log(twice(10));
+console.log(twice(5));
+
+
+// Recursion 
+function power(base, exponent) {
+    if (exponent === 0) return 1
+    return base * power(base, exponent-1)
+}
+
+console.log("Power of 2 to 3: ", power(2,3));
+
+// Check evenness using recursion
+function isEven(num) {
+    if  (num < 0) return '??'
+    else if (num === 1) return false 
+    else if (num === 0) return true
+
+    return isEven(num-2)
+}
+
+console.log(isEven(50));
+// → true
+console.log(isEven(75));
+// → false
+console.log(isEven(-1));
+// → ??
+
+// Count the number of B's in a word
+function countBs(word) {
+    let count = 0;
+    for (let char of word) {
+        if (char === 'B') count += 1
+    }
+    return count
+}
+
+function countChar(word, c) {
+    let count = 0;
+    for (let char of word) {
+        if (char === c) count += 1
+    }
+    return count
+}
+
+console.log(countBs("BOB"));
+// → 2
+console.log(countChar("kakkerlak", "k"));
+// 4
+// Destructuring
+
+function phi([n00, n01, n10, n11]) {
+    const corr = (n11 * n00 - n10 * n01) / (Math.sqrt((n10 + n11) * (n00 + n01) * (n01 + n11) * (n00 + n10)))
+    return corr
+}
+
+console.log(phi([76, 9, 4, 1]));
+
+// Rest Parameters
+function max(...numbers) {
+    let max = -Infinity
+
+    for (let num of numbers) {
+        if (num > max) max = num
+    }
+    return max
+}
+
+console.log(max(4,1,9,-2));
+
+// Spread operation
+let numbers = [5, 1, 7];
+console.log(max(...numbers));
+console.log(max(9, ...numbers, 2));
+
+let words = ["never", "fully"];
+console.log(["We", "will", ...words, "understand"]);
+
+
+// Shift, Unshift
+// removes and add first item in an array respectively.
+
+let toDoList = ["study", "pray"];
+toDoList.shift()
+console.log(toDoList);
+toDoList.unshift("work")
+console.log(toDoList);
 
 
 
