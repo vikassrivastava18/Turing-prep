@@ -140,4 +140,67 @@ print(binary_search([1,2,3,4,5], 3))
 print(binary_search([1,2,3,4,5], 3.5))
 
 
+def is_triangular(n):
+    """ n is an integer > 0
+    Return True if n is triangular, i.e. equals a summation of natural numbers
+    """
+    total = 0
+    for i in range(n):
+        total += i
+        if total == n:
+            return True
+    return False
 
+print(is_triangular(3))
+print(is_triangular(4))
+print(is_triangular(5))
+print(is_triangular(6))
+
+
+# Function as a parameter (Is the code good??)
+class Calculator:
+    @staticmethod
+    def calc(op, x, y):
+        if Calculator.validate(x) and Calculator.validate(y):
+            return op(x, y)
+    
+    @staticmethod
+    def validate(x):
+        if not isinstance(x, (int | float)):
+            return False
+        return True
+         
+def add (a, b):
+    return a + b
+
+def div (a, b):
+    if b != 0:
+        return a / b
+
+
+c = Calculator()
+print(c.calc(lambda x, y: x + y, 30, 4))
+
+# Variable number of arguments
+
+def mean(*args):
+    total = 0
+
+    for item in args:
+        total += item
+
+    return total / len(args)
+
+print(mean(1,2,3,4))
+
+# Lambda functions
+
+is_even = lambda r: r % 2 == 0
+
+print(is_even(3))
+print(is_even(30))
+
+def do_twice(n, fn):
+    return fn(fn(n))
+
+print(do_twice(5, lambda x : x ** 2))

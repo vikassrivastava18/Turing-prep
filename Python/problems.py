@@ -465,3 +465,168 @@ remove_and_sort(L, k)
 print(L)   # prints the list [3, 6]
 
 
+def check_sorted(ls: list) -> bool:
+    """
+    Returns True if the list is sorted
+    Approach: loop from index 0 to second last element's index.
+              Compare consecutive elements, returns Flase if any
+              succeeding element is smaller than the preceding one
+    """
+
+    for i in range(len(ls)-1):
+        if ls[i+1] < ls[i]:
+            return False
+    
+    return True
+
+print(check_sorted([1,2,3,4,5,6]))
+print(check_sorted([1,2,3,0,5,6]))
+
+
+def second_largest(ls: list[int]) -> bool:
+    """
+    Returns the second largest element of the list
+    """
+    assert len(ls) > 1, "List must contain at least two elements"
+
+    first, second = -math.inf, -math.inf
+
+    for i in range(len(ls)):
+        if ls[i] > first:
+            second = first
+            first = ls[i]
+        elif ls[i] > second:
+            second = ls[i]
+        
+    return second
+
+print(second_largest([1, 3, 2])) # 2
+print(second_largest([1, 3, 2, 4, 10, 9, 8, 0])) # 9
+print(second_largest([1, 3, 2, 4, 6, 0, 5])) # 5
+
+
+def wave_array(ls: list) -> list:
+    """
+    Implement a waveform such that first is greater than second, second 
+    is smaller than third and so on.
+    """
+    for i in range(len(ls) - 1):
+        if i % 2 == 0: 
+            if ls[i] < ls[i + 1]:
+                ls[i], ls[i + 1] = ls[i + 1], ls[i]
+        else:
+            if ls[i] > ls[i + 1]:
+                ls[i], ls[i + 1] = ls[i + 1], ls[i]
+    return ls
+
+
+print(wave_array([1, 2, 3, 4, 5]))
+print(wave_array([2, 4, 7, 8, 9, 10]))
+
+
+def merge_sorted_arrays(l1: list, l2: list) -> list:
+    """
+        l1, l2 - Lists of numbers
+        Should return a sorted list combining the two input 
+    """
+    result = []
+
+    # Start with the initial position for both the lists
+    i, j = 0, 0 
+    while i < len(l1) and j < len(l2):
+        if l1[i] < l2[j]:
+            result.append(l1[i])
+            i += 1  
+        elif l1[i] > l2[j]:
+            result.append(l2[j])
+            j += 1
+        else:
+            result.append(l1[i])
+            result.append(l2[j])
+            i += 1
+            j += 1
+
+    if i < len(l1):
+        result.extend(l1[i:])
+    if j < len(l2):
+        result.extend(l2[j:])
+
+    return result
+
+
+print(merge_sorted_arrays([1,3,5], [2,4,6]))
+print(merge_sorted_arrays([1,3,5], [2,4]))
+
+assert merge_sorted_arrays([1,3,5], [2,4,6]) == [1,2,3,4,5,6], "Merge tests failed"
+assert merge_sorted_arrays([], [1,2]) == [1,2], "Merge tests failed"
+assert merge_sorted_arrays([1,2], []) == [1,2], "Merge tests failed"
+
+def pairs_with_diff(ls: list, k: int) -> list:
+    """
+    Returns a list of all pairs
+    with difference equal to k
+    """
+
+    result = []
+    for item in ls:
+        check_pair_gr = item + k
+        check_pair_sm = item - k
+        if check_pair_gr in ls:
+            result.append((item, check_pair_gr))
+        if check_pair_sm in ls:
+            result.append((item, check_pair_sm))
+
+    return result
+
+print(pairs_with_diff([8, 16, 12, 16, 4, 0], 4))
+print(pairs_with_diff([1, 4, 1, 4, 5], 3))
+
+# Remove minimum number of elements from lists to make them different
+def remove_common_counts(l1: list, l2: list) -> int:
+    """
+        Remove minimum number of elements from two lists
+        To make them completely differnt
+    """
+    l1_unique = set(l1)
+    l2_unique = set(l2)
+
+    common_elements = l1_unique.intersection(l2_unique)
+
+    count = 0
+    for common in common_elements:
+        if l1.count(common) < l2.count(common):
+            count += l1.count(common)
+        elif l1.count(common) > l2.count(common):
+            count += l2.count(common)
+        else:
+            count += l1.count(common)
+
+    return count
+
+l1 = [2, 3, 4, 5, 8]
+l2 = [1, 2, 3, 4]
+
+print(remove_common_counts(l1, l2))
+print(remove_common_counts([1,1,1,2,3,4,5], [1,1,2,6,7]))
+
+def max_distance_between_elem(l: list) -> int:
+    """
+    the task is to find the maximum distance between two occurrences of an element. 
+    If no element has two occurrences, then return 0.
+    """
+    # Step 1: Find the indexes of all elements
+    indexes = {}
+
+    for i, item in enumerate(l):
+        indexes[item] = indexes.get(item, []) + [i]
+
+    _max = 0
+
+    for item in indexes:
+        if indexes[item][-1] - indexes[item][0] > _max:
+            _max = indexes[item][-1] - indexes[item][0]
+
+    return _max
+
+print(max_distance_between_elem([1, 1, 2, 2, 2, 1]))
+print(max_distance_between_elem([3, 2, 1, 2, 1, 4, 5, 8, 6, 7, 4, 2]))
