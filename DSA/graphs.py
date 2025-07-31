@@ -101,7 +101,6 @@ def min_cuts(graph: list) -> list:
     """
     _graph = copy.deepcopy(graph)
 
-
     while len(_graph) > 2:
         # Select an edge randomly
         a = random.choice(list(_graph.keys()))
@@ -494,7 +493,7 @@ print("Largest component: ", largest_component(g2))
 def islands_count(graph) -> int:
     pass
     
-
+    
 def minimum_island_size(graph) -> int:
     """
     ???

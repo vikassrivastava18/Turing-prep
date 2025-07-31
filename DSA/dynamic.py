@@ -1,22 +1,4 @@
 memo = {1: 1, 2: 1}
-def fibonacci(n):
-    global memo
-    # Base case
-    if n in memo:
-        return n
-    
-    feb_left = fibonacci(n-1)
-    print(n-1, feb_left)
-    if n-1 not in memo:
-        memo[n-1] = feb_left
-    feb_right = fibonacci(n-2)
-    print(n-1, feb_right)
-    if n-2 not in memo:
-        memo[n-2] = feb_right
-
-    return feb_left + feb_right 
-
-memo = {1: 1, 2: 1}
 def fibonacci_updated(n):
     global memo
     # Base case
@@ -29,7 +11,6 @@ def fibonacci_updated(n):
     feb_right = fibonacci_updated(n-2)
 
     return feb_left + feb_right 
-
 
 print(fibonacci_updated(3))
 print(fibonacci_updated(4))
@@ -63,7 +44,6 @@ class Fibonacci:
 # Minimum coins
 # Given an endless amount of denominations, find the minimum set of coins whose sum matches the required value.
 # Test: Coins = {1,4,5}, sum = 13, output = 3 ([4,4,5])
-
 
 def minimum_coins(coins: list, sum:int) -> int:
     """
@@ -192,8 +172,9 @@ def possible_coins_set(coins: list[int], sum: int, memo=None) -> int:
 
     return count
     
-print("Possible count: ",possible_coins_set([1,4,5], 7))
-    
+print("Possible count:: ",possible_coins_set([1,4,5], 7))
+
+        
 
 def maze_count(mz: tuple, start: tuple,  memo=None) -> int:
     """
@@ -286,16 +267,33 @@ def max_path_sum(graph, position: int, memo=None) -> int:
     total_wight = current_weight + max(down_max,right_max)
     memo[position] = total_wight
     print("Memo: ", memo)
-
     return total_wight
     
 
 g = [[1,2,8], [5,1,3]]
 print(max_path_sum(g, (0,0)))
 
+
 def non_adjacent_max_sum(ls: list) -> int:
     pass
 
-def min_summing_squares(n, sum) -> int:
+def min_summing_squares(n=5, sum=25, memo={1: 1}) -> int:
     # find the minimimum set of squares from 1 to n that on adding is equal to sum.
-    pass
+    if sum in memo:
+        return memo[sum]
+    
+    for i in range(1, n+1):
+        if i ** 2 == sum:
+            memo[sum] = 1
+
+        elif sum > i ** 2:
+            local_min = 1 + min_summing_squares(n, sum - i**2, memo)
+            if sum in memo:
+                memo[sum] = min(local_min, memo[sum])
+            else:
+                memo[sum] = local_min
+
+    return memo[sum]
+
+print(min_summing_squares())
+

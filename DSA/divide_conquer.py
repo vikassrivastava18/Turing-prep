@@ -85,7 +85,7 @@ print(merge_and_count([1,2,5], [3,4,6]))
 def inversions(l: list[int]) -> int:
     """
     Prameters: integer list
-    Returns: total inversions ans sorted list tuple
+    Returns: total inversions and sorted list tuple
     Plan: Count the left half and right half inversions, add the split inversions when combining them
     """
 
@@ -178,65 +178,12 @@ def inversion_large(file: str) -> int:
 # print("GPT code: ", count_inversions(r))
 
 
-def matrix_multi(a: list, b: list) -> list:
-    """
-    Task: Should return the multiplication output of two matrices a and b.
-    Plan: 1) Initialize a n * n Matrix
-          2) Loop over both matrices and another nested one.
-          3) Use Matrix multiplication formula for assigning result: C(i,j) = Sum(A[i,k] * B[k,j]
-    """
-    n = len(a)
-    result = [[0 for _ in range(n)] for _ in range(n)]
-
-    for i in range(n):
-        for j in range(n):
-            for k in range(n):
-                result[i][j] += a[i][k] * b[k][j]
-
-    return result
-
-import random
-
-def matrix_mul_general(a: list, b: list) -> list:
-    """
-    Task: Create a general solution for Matrix multiplication
-    Plan: 1) First validate the dimensions of the matrices
-          2) Modify the loop ranges
-          3) Use the modified formula for calculation: C(i,j) = Sum(A[i,k] * B[k,j]) 
-    """
-    assert len(b) == len(a[0]), "Invalid dimensions"
-
-    m = len(a)
-    k = len(b[0])
-    n = len(b)
-
-    result = [[0 for _ in range(k)] for _ in range(m)]
-
-    for i in range(m):
-        for j in range(k):
-            for l in range(n):
-                result[i][j] += a[i][l] * b[l][j]
-
-    return result
-
-m = random.randint(10,15)
-n = random.randint(10,12)
-k = random.randint(10,25)
-
-
-a = [[random.randint(0,10) for _ in range(n)] for _ in range(m)]
-b = [[random.randint(0,10) for _ in range(k)] for _ in range(n)]
-
-print(f"m: {m}, n: {n}, k: {k}")
-print(f"a: {a}, b: {b}")
-print(matrix_mul_general(a, b))
 
 def quick_sort(ls: list) -> list:
     """
         Pick first element to be pivot.
         Create partition with left part. smaller than pivot right, bigger
         Perform sorting on left and half partitions
-        Ex: [3, 8, 2, 5, 1, 4, 7, 6]
     """
     if len(ls) == 1 or len(ls) == 0:
         return ls

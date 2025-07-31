@@ -398,7 +398,8 @@ def encoded_string(string: str) -> str:
             i += 1
 
     return result
-encoded_string("13[a]10[bc]")
+print("Encoded string: ", encoded_string("13[a]10[bc]5[a]"))
+print(encoded_string("2[abc3[de]]"))
 
 # Backtractracking
 def generate_subsets(nums):
@@ -611,7 +612,7 @@ print(remove_common_counts([1,1,1,2,3,4,5], [1,1,2,6,7]))
 
 def max_distance_between_elem(l: list) -> int:
     """
-    the task is to find the maximum distance between two occurrences of an element. 
+    The task is to find the maximum distance between two occurrences of an element. 
     If no element has two occurrences, then return 0.
     """
     # Step 1: Find the indexes of all elements
@@ -630,3 +631,311 @@ def max_distance_between_elem(l: list) -> int:
 
 print(max_distance_between_elem([1, 1, 2, 2, 2, 1]))
 print(max_distance_between_elem([3, 2, 1, 2, 1, 4, 5, 8, 6, 7, 4, 2]))
+
+
+def generate_bits(n: int, memo={1:["0", "1"]}) -> list:
+    if n in memo:
+        return memo[n]
+    
+    get_one_less = generate_bits(n-1, memo)
+    zeoros = ["0" + bit for bit in get_one_less]
+    ones = ["1" + bit for bit in get_one_less]
+    memo[n] = zeoros + ones
+    return zeoros + ones
+
+print(generate_bits(2))
+# print(generate_bits(8))
+
+def vaild_brackets(brackets) -> bool:
+    open, closed = "(", ")"
+    stack = []
+
+    for bracket in brackets:
+        if bracket == open:
+            stack.append(bracket)
+        else:
+            if len(stack) == 0:
+                return False            
+            stack.pop()
+
+    return len(stack) == 0
+
+
+def generate_brackets(n, memo={1:["(", ")"]}):
+    if n in memo:
+        return memo[n]
+    
+    get_one_less = generate_brackets(n-1)
+    open = ["(" + bracket for bracket in get_one_less]
+    closed = [")" + bracket for bracket in get_one_less]
+
+    memo[n] = open + closed
+    return memo[n]
+
+# brackets_8 = generate_brackets(8)
+# for bracket in brackets_8:
+#     if vaild_brackets(bracket):
+#         print(bracket)
+
+
+def matrix_multi(a: list, b: list) -> list:
+    """
+    Task: Should return the multiplication output of two matrices a and b.
+    Plan: 1) Initialize a n * n Matrix
+          2) Loop over both matrices and another nested one.
+          3) Use Matrix multiplication formula for assigning result: C(i,j) = Sum(A[i,k] * B[k,j]
+    """
+    n = len(a)
+    result = [[0 for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                result[i][j] += a[i][k] * b[k][j]
+
+    return result
+
+import random
+
+def matrix_mul_general(a: list, b: list) -> list:
+    """
+    Task: Create a general solution for Matrix multiplication
+    Plan: 1) First validate the dimensions of the matrices
+          2) Modify the loop ranges
+          3) Use the modified formula for calculation: C(i,j) = Sum(A[i,k] * B[k,j]) 
+    """
+    assert len(b) == len(a[0]), "Invalid dimensions"
+
+    m = len(a)
+    k = len(b[0])
+    n = len(b)
+
+    result = [[0 for _ in range(k)] for _ in range(m)]
+
+    for i in range(m):
+        for j in range(k):
+            for l in range(n):
+                result[i][j] += a[i][l] * b[l][j]
+
+    return result
+
+m = random.randint(10,15)
+n = random.randint(10,12)
+k = random.randint(10,25)
+
+
+a = [[random.randint(0,10) for _ in range(n)] for _ in range(m)]
+b = [[random.randint(0,10) for _ in range(k)] for _ in range(n)]
+
+# print(f"m: {m}, n: {n}, k: {k}")
+# print(f"a: {a}, b: {b}")
+# print(matrix_mul_general(a, b))
+
+
+def fibonacci(n, memo={1: 1, 2: 1}):
+    
+    if n in memo:
+        return memo[n]
+    
+    for i in range(3, n+1):
+        memo[i] = fibonacci(i-1, memo) + fibonacci(i-2, memo)
+
+    return memo[n]
+
+# t2 = time.time()
+# print(fibonacci(1000))
+# t1 = time.time()
+# print(f"Time taken: {t2-t1}")
+
+
+def fibonacci_recursive(n, memo={1: 1, 2: 1}):
+    if n in memo:
+        return memo[n]
+    
+    fib_l = fibonacci_recursive(n-1, memo)
+    fib_r = fibonacci_recursive(n-2, memo)
+    memo[n] = fib_l + fib_r
+    return memo[n]
+
+
+# t2 = time.time()
+# print(fibonacci_recursive(1000))
+# t1 = time.time()
+# print(f"Time taken: {t2-t1}")
+
+def tribonacci_recursive(n, memo={0: 0, 1: 1, 2: 1}):
+    if n in memo:
+        return memo[n]
+    
+    trib_p = tribonacci_recursive(n-1, memo)
+    trib_pp = tribonacci_recursive(n-2, memo)
+    trib_ppp = tribonacci_recursive(n-3, memo)
+
+    memo[n] = trib_p + trib_pp + trib_ppp
+
+    return memo[n]
+
+# t2 = time.time()
+# print(tribonacci_recursive(1000))
+# t1 = time.time()
+# print(f"Time taken: {t2-t1}")
+
+def possible_coins_set(coins: list[int], sum: int) -> int:
+    memo={0: 1}
+
+    for i in range(1, sum+1):
+        count = 0
+        left = math.inf
+        while left > 0:
+            for coin in coins:
+                left -= coin
+
+        for coin in coins:
+            left = i - coin
+            
+            while left > 0:
+                left -= coin
+
+            if left == 0:
+                count += 1
+            if left < 0:
+                continue
+        memo[i] = count
+    
+    return memo
+
+
+def possible_coins_set_rec(coins, sum, memo={0: 1}):
+    if sum in memo:
+        return memo[sum]
+    
+    memo[sum] = 0
+    for coin in coins:
+        left = sum - coin
+        while left > 0:
+            memo[sum] += possible_coins_set_rec(coins, left, memo)
+            # left = sum - coin
+        
+    return memo[sum]
+
+
+
+
+
+# Find all possible combinations to make the sum
+def possible_coins_set_rec(coins=[1, 4, 5], sum=2, memo={1: 1}) -> int:
+    pass
+
+
+
+def possible_coins_set(coins: list[int], sum: int, memo=None) -> int:
+    # Initialize memo
+    if not memo:
+        memo = {0: 1}
+    # Base Case
+    if sum in memo:
+        return memo[sum]
+
+    count = 0
+
+    for coin in coins:
+        remaining = sum - coin
+        if remaining >=0:
+            count += possible_coins_set(coins, remaining, memo)
+
+    memo[sum] = count
+
+    return memo[sum]
+    
+print("Possible count:: ",possible_coins_set([1,4,5], 3))
+print("Possible count:: ",possible_coins_set([1,4,5], 4))
+print("Possible count:: ",possible_coins_set([1,4,5], 5))
+
+
+def min_path_sum(graph=[[1,2,8], [5,1,3]], position=(0,0), memo=None) -> int:
+    """
+        Returns the minimum cost of reaching from the starting position
+        Parameters: 
+                graph - Weights of cost
+                position - Starting postion
+                Destiny - (len(graph)-1, len(graph[0])-1)
+        Plan: Take the base case as destination, memoize the cost
+              Recursively find the cost of preceding connented nodes
+    """
+    import math
+    memo = memo if memo else {(len(graph)-1, len(graph[0])-1): graph[-1][-1]}
+
+    if position in memo:
+        return memo[position]
+    
+    # Find the right and down min distance
+    if position[0] < len(graph) - 1:
+        down_distance = graph[position[0]][position[1]] + min_path_sum(graph, (position[0]+1, position[1]), memo)
+    else:
+        down_distance = math.inf
+
+    if position[1] < len(graph[0]) - 1:
+        right_distance = graph[position[0]][position[1]] + min_path_sum(graph, (position[0], position[1]+1), memo)
+    else:
+        right_distance = math.inf
+
+    memo[position] = min(down_distance, right_distance)
+
+    return memo[position]
+
+
+print(min_path_sum(position=(0,0)))
+print(min_path_sum(position=(0,1)))
+print(min_path_sum(position=(1,1)))
+
+
+def min_summing_squares(n=5, sum=25, memo={0: 1}) -> int:
+    # find the minimimum set of squares from 1 to n that on adding is equal to sum.
+    if sum in memo:
+        return memo[sum]
+    
+    for i in range(1, n+1):
+        if sum == i ** 2:
+            memo[sum] = 1
+        if sum > i ** 2:
+            local_min = 1 + min_summing_squares(n, sum - i**2, memo)
+            memo[sum] = local_min
+
+    return memo[sum]
+
+print("min",min_summing_squares(n=5, sum=25))
+print("min",min_summing_squares(n=5, sum=5))
+print("min",min_summing_squares(n=5, sum=4))
+print("min",min_summing_squares(n=5, sum=3))
+print("min",min_summing_squares(n=5, sum=7))
+
+
+
+# Find the smallest COMBINATION of coins to make up the sum
+def minimum_coins_set_rec(coins=[1, 4, 5], sum=2, memo={1: 1}):
+    if sum in memo:
+        return memo[sum]
+    
+    for coin in coins[::-1]:
+        if sum == coin:
+            memo[sum] = 1
+        elif sum > coin:
+            local_min = 1 + minimum_coins_set_rec(coins, sum=sum-coin, memo=memo)
+            if sum in memo:
+                print("Idea works!!")
+                memo[sum] = min(local_min, memo[sum])
+            else:
+                memo[sum] = local_min
+    return memo[sum]
+        
+print(minimum_coins_set_rec(sum=3))   
+print(minimum_coins_set_rec(sum=5))   
+print(minimum_coins_set_rec(sum=7))  
+print(minimum_coins_set_rec(sum=10))  
+print(minimum_coins_set_rec(sum=9))  
+print(minimum_coins_set_rec(sum=8))
+print(minimum_coins_set_rec(sum=12))
+print(minimum_coins_set_rec(sum=13))
+print(minimum_coins_set_rec(sum=50))
+print(minimum_coins_set_rec(sum=52))
+print(minimum_coins_set_rec(sum=53))
