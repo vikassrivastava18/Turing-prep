@@ -1,0 +1,84 @@
+Multithreading - Threads are created in sequence, but may not get executed in sequence. A thread that was started later might get executed before.
+
+Ex -
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+def thread(name):
+    print(f'New thread with name {name} called.')
+    time.sleep(3)
+    print(f'Thread {name} executiin ended')
+
+
+if __name__ == '__main__':
+    print('main begins')
+    with ThreadPoolExecutor(max_workers=3) as e:
+	e.map(thread, ['foo', 'bar', 'baz'])
+    print('main ended')
+
+
+Race: such behaviour could be problematic in some situations like banking where one thread must execute before the next one.
+
+
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+class Account:
+    def __init__(self):
+        self.balance = 100 # shared data
+    def update(self, transaction, amount):
+        print(f'{transaction} thread updating...')
+        local_copy = self.balance
+        local_copy += amount
+        time.sleep(1)
+        self.balance = local_copy
+        print(f'{transaction} thread finishing...')
+
+
+if __name__ == '__main__':
+    account = Account()
+    print(f'starting with balance of {account.balance}')
+    with ThreadPoolExecutor(max_workers=2) as ex:
+        for transaction, amount in [('deposit', 50), ('withdrawal', -150)]:
+            ex.submit(account.update, transaction, amount)
+    print(f'ending balance of {account.balance}')
+
+
+
+Lock - This can help address the race condition problem
+
+from concurrent.futures import ThreadPoolExecutor
+import time
+import threading
+
+
+class Account:
+    def __init__(self):
+        self.balance = 100
+        self.lock = threading.Lock()
+
+    def update(self, trans, amount):
+        print(f'Transaction {trans} thread is starting')
+        with self.lock:
+            if self.balance <= 0 and trans == 'withdrawl':
+                return None
+            local_copy = self.balance
+            local_copy += amount
+            time.sleep(1)
+            self.balance = local_copy
+        print(f'Transaction {trans} completed.')
+
+if __name__ == '__main__':
+    account = Account()
+    with ThreadPoolExecutor(max_workers=2) as e:
+        for trans, amount in [('submit', 50), ('withdrawl', -100)]:
+            e.submit(account.update, trans, amount)
+
+    print(f'Final amount: {account.balance}.')
+
+
+DeadLock - Happens when you lock a lock
+
+lock = threading.Lock()
+lock.acquire() -> This locks the context
+lock.acquire()

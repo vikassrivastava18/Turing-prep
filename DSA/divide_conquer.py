@@ -178,7 +178,6 @@ def inversion_large(file: str) -> int:
 # print("GPT code: ", count_inversions(r))
 
 
-
 def quick_sort(ls: list) -> list:
     """
         Pick first element to be pivot.
